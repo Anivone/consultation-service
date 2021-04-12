@@ -6,7 +6,7 @@ export class Application {
 
     constructor() {
         this.express = new ExpressConfig();
-        const port = process.env.API_GATEWAY_PORT;
+        const port = process.env.POST_SERVICE_PORT;
         this.server = this.express.app.listen(port,
             () => console.log(`Server started ! Express: http://localhost:${port}`));
     }
