@@ -1,8 +1,16 @@
-import { Controller, Get } from "routing-controllers";
+import { Controller, Get, Post, Req, Res } from "routing-controllers";
+import { Request, Response } from "express";
+import axios from "axios";
 
-@Controller('/')
+@Controller()
 export class HelloController {
-    constructor() {}
+
+    @Get('/posts')
+    async getPosts(@Res() res: Response): Promise<any> {
+        const response = await axios.get('http://localhost:5001/posts');
+
+        return response.data;
+    }
 
     @Get('/')
     async get(): Promise<any> {
@@ -10,4 +18,12 @@ export class HelloController {
             msg: 'This is my first microservice - API Gateway !'
         }
     }
+
+    @Post('/posts')
+    async createPost(@Req() req: Request): Promise<any> {
+        const response = await axios.post('http://localhost:5001/posts', req.body);
+
+        return response.data;
+    }
+
 }
