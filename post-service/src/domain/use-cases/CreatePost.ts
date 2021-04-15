@@ -1,13 +1,13 @@
 import { IPostRepository } from "../gateway/IPostRepository";
 import { Post } from "../entities/Post";
-import { IUseCase } from "./IUseCase";
+import { IUseCase, UseCaseProps } from "./types";
 import { IPost } from "../entities/types";
 
 export class CreatePost implements IUseCase<Post> {
 
     postRepository: IPostRepository;
 
-    constructor(postRepository: IPostRepository) {
+    constructor({ postRepository }: UseCaseProps) {
         this.postRepository = postRepository;
     }
 
