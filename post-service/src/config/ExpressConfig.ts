@@ -7,22 +7,21 @@ import { useExpressServer } from "routing-controllers";
 import makeContainer, { ContainerReq } from "./Container";
 import * as awilix from 'awilix';
 import { scopePerRequest } from "awilix-express";
+import * as mongoose from "mongoose";
 
 export class ExpressConfig {
     app: express.Express;
     container: awilix.AwilixContainer;
 
-    constructor() {
+    constructor(connection: mongoose.Connection) {
         this.app = express();
 
         this.app.use(cors());
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: false}));
 
-        this.container = makeContainer();
+        this.container = makeContainer(connection);
         this.app.use(scopePerRequest(this.container));
-
-        dotenv.config({path: path.resolve(__dirname, '../../../.env')});
 
         this.setUpControllers();
     }
