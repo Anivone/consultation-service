@@ -8,16 +8,16 @@ export class PostController {
 
     @Get('/')
     async getPosts(@Req() req: ContainerReq): Promise<Post[]> {
-        const { postRepository } = req.container.cradle;
+        const { getPosts } = req.container.cradle;
 
-        return postRepository.getPosts();
+        return getPosts.execute();
     }
 
     @POST('/')
     async createPost(@Req() req: ContainerReq, @Body() postProps: IPost): Promise<Post> {
-        const { postRepository } = req.container.cradle;
+        const { createPost } = req.container.cradle;
         const post = new Post(postProps);
 
-        return postRepository.createPost(post);
+        return createPost.execute(post);
     }
 }
