@@ -1,7 +1,6 @@
 import { IPostRepository } from "../../domain/gateway/IPostRepository";
 import { IPost } from "../../domain/entities/types";
 import { Post } from "../../domain/entities/Post";
-import * as mongoose from "mongoose";
 import { IPostDocument, IPostModel } from "../schemas/PostSchema";
 import to from "await-to-js";
 
@@ -35,22 +34,21 @@ export class PostRepository implements IPostRepository {
         return this.PostModel.toPost(post);
     }
 
-    deletePost(postID: string): Promise<void> {
-        return Promise.resolve(undefined);
+    async deletePost(postID: string): Promise<IPostDocument> {
+        return this.PostModel.findByIdAndRemove(postID);
     }
 
-    getPostById(postID: string): Promise<Post> {
-        return Promise.resolve(undefined);
+    async getPostById(postID: string): Promise<IPostDocument> {
+        return this.PostModel.findById(postID);
+
     }
 
-    async getPosts(filter?: any): Promise<Post[]> {
-        const posts = await this.PostModel.find(filter);
-
-        return posts.map(post => this.PostModel.toPost(post));
+    async getPosts(filter?: any): Promise<IPostDocument[]> {
+        return this.PostModel.find(filter);
     }
 
-    updatePost(postID: string, updateProps: any): Promise<void> {
-        return Promise.resolve(undefined);
+    async updatePost(postID: string, updateProps: any): Promise<IPostDocument> {
+        return this.PostModel.findByIdAndUpdate(postID, updateProps);
     }
 
 }

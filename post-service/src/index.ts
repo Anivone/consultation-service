@@ -11,6 +11,7 @@ export default mongoose.createConnection(
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useFindAndModify: false,
         serverSelectionTimeoutMS: 5000
     },
     (err, conn) => {
