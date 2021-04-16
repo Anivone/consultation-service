@@ -10,7 +10,7 @@ export class DeletePost implements IUseCase<Post> {
         this.postRepository = postRepository;
     }
 
-    execute(props: string): Promise<void> {
+    execute(props: string): Promise<Post> {
         return this.postRepository.deletePost(props);
     }
 

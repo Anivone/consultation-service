@@ -4,7 +4,7 @@ import { IPostRepository } from "../gateway/IPostRepository";
 import { IPost } from "../entities/types";
 
 interface UpdateUseCase {
-    postID: string,
+    id: string,
     updateProps: any,
 }
 
@@ -16,8 +16,8 @@ export class UpdatePost implements IUseCase<Post> {
         this.postRepository = postRepository;
     }
 
-    execute({ postID, updateProps }: UpdateUseCase): Promise<void> {
-        return this.postRepository.updatePost(postID, updateProps);
+    execute({ id, updateProps }: UpdateUseCase): Promise<Post> {
+        return this.postRepository.updatePost(id, updateProps);
     }
 
 }
