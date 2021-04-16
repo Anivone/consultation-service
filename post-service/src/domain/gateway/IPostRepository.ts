@@ -9,8 +9,8 @@ export interface IPostRepository {
 
     createPost(postProps: IPost): Promise<Post>;
 
-    updatePost(postID: string, updateProps: any): Promise<void>;
+    updatePost(postID: string, updateProps: any): Promise<Post>;
 
-    deletePost(postID: string): Promise<void>;
+    deletePost(postID: string): Promise<Post>;
 
 }
