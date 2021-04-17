@@ -13,7 +13,7 @@ export class PostController {
         const { getPosts } = req.container.cradle;
         const posts = await getPosts.execute();
 
-        return posts.map((post: IPostDocument) => new PostDTO(post));
+        return posts.map((post: IPostDocument) => post ? new PostDTO(post) : null);
     }
 
     @Get('/:id')
@@ -21,7 +21,7 @@ export class PostController {
         const { getPostById } = req.container.cradle;
         const post: IPostDocument = await getPostById.execute(id);
 
-        return new PostDTO(post);
+        return post ? new PostDTO(post) : null;
     }
 
     @POST('/')
