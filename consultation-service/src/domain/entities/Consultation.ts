@@ -6,20 +6,22 @@ export class Consultation {
     userID: string;
     consultantID: string;
     sphereID: string;
+    specialty: string;
     companyName?: string;
     description: string;
     price: number;
 
     constructor({
-                    title, userID, consultantID, sphereID, companyName, description, price,
+                    title, userID, consultantID, sphereID, specialty, companyName, description, price,
                 }: IConsultation) {
-        this.title = title
-        this.userID = userID
-        this.consultantID = consultantID
+        this.title = title;
+        this.userID = userID;
+        this.consultantID = consultantID;
         this.sphereID = sphereID;
-        this.companyName = companyName
-        this.description = description
-        this.price = price
+        this.specialty = specialty;
+        this.companyName = companyName;
+        this.description = description;
+        this.price = price;
     }
 
 }

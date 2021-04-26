@@ -22,6 +22,7 @@ export class ConsultationRepository implements IConsultationRepository {
             userID: consultationProps.userID,
             consultantID: consultationProps.consultantID,
             sphereID: consultationProps.sphereID,
+            specialty: consultationProps.specialty,
             companyName: consultationProps.companyName,
             description: consultationProps.description,
             price: consultationProps.price

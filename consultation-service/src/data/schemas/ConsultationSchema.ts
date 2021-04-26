@@ -23,6 +23,10 @@ const ConsultationSchema: Schema<IConsultationDocument> = new Schema<IConsultati
         type: Schema.Types.String,
         required: true
     },
+    specialty: {
+        type: Schema.Types.String,
+        required: true,
+    },
     companyName: {
         type: Schema.Types.String,
         required: false
