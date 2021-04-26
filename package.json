@@ -4,7 +4,7 @@
   "description": "Application where users can ask questions, get answers and request private consultations. Microservice architecture is used. Application is based on RESTful API.",
   "main": "index.js",
   "scripts": {
-    "start:dev": "concurrently \"cd api-gateway && npm run dev\" \"cd post-service && npm run dev\"",
+    "start:dev": "concurrently \"cd api-gateway && npm run dev\" \"cd post-service && npm run dev\" \"cd comment-service & npm run dev\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
