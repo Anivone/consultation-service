@@ -9,6 +9,7 @@ export interface IPost {
     description: string,
     userID: string,
     relevance: number,
+    tags: string[],
     date: {
         day: number,
         month: number,

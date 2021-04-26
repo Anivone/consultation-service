@@ -5,6 +5,6 @@ export default function mongoModelsConfig(connection: mongoose.Connection) {
    const postModel: IPostModel = connection.model<IPostDocument, IPostModel>('Post', PostSchema);
 
    return {
-      commentModel: postModel
+      postModel: postModel
    }
 }

@@ -1,6 +1,5 @@
 import { IPostRepository } from "../../domain/gateway/IPostRepository";
 import { IPost } from "../../domain/entities/types";
-import { Post } from "../../domain/entities/Post";
 import { IPostDocument, IPostModel } from "../schemas/PostSchema";
 import to from "await-to-js";
 
@@ -22,6 +21,7 @@ export class PostRepository implements IPostRepository {
             description: postProps.description,
             userID: postProps.userID,
             relevance: postProps.relevance,
+            tags: postProps.tags,
             date: postProps.date,
             views: postProps.views,
             sphereID: postProps.sphereID,

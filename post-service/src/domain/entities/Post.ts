@@ -6,6 +6,7 @@ export class Post {
     description: string;
     userID: string;
     relevance: number;
+    tags: string[];
     date: {
         day: number,
         month: number,
@@ -17,12 +18,13 @@ export class Post {
     edited: boolean;
 
     constructor({
-                    title, description, userID, relevance, date, views, sphereID, status, edited
+                    title, description, userID, relevance, tags, date, views, sphereID, status, edited
                 }: IPost) {
         this.title = title;
         this.description = description;
         this.userID = userID;
         this.relevance = relevance;
+        this.tags = tags;
         this.date = date;
         this.views = views;
         this.sphereID = sphereID;

@@ -11,6 +11,7 @@ export default class PostDTO extends Post{
             description: postDocument.description,
             userID: postDocument.userID,
             relevance: postDocument.relevance,
+            tags: postDocument.tags,
             date: postDocument.date,
             views: postDocument.views,
             sphereID: postDocument.sphereID,
