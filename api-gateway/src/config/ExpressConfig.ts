@@ -1,8 +1,7 @@
-import * as cors from "cors";
 import * as express from "express";
-import * as bodyParser from "body-parser";
 import * as path from "path";
 import * as dotenv from 'dotenv';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 import { useExpressServer } from "routing-controllers";
 
 export class ExpressConfig {
@@ -11,9 +10,12 @@ export class ExpressConfig {
     constructor() {
         this.app = express();
 
-        this.app.use(cors());
-        this.app.use(bodyParser.json());
-        this.app.use(bodyParser.urlencoded({extended: false}));
+        this.app.use('/posts',
+            createProxyMiddleware('/posts', {
+                target: 'http://localhost:5001',
+                changeOrigin: true,
+            }));
+
         dotenv.config({path: path.resolve(__dirname, '../../../.env')});
 
         this.setUpControllers();

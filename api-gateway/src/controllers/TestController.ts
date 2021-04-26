@@ -1,6 +1,6 @@
 import { Controller, Get } from "routing-controllers";
 
-@Controller()
+@Controller('/test')
 export class TestController {
 
     @Get('/')
