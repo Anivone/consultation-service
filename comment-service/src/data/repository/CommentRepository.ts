@@ -1,6 +1,5 @@
 import { ICommentRepository } from "../../domain/gateway/ICommentRepository";
 import { IComment } from "../../domain/entities/types";
-import { Comment } from "../../domain/entities/Comment";
 import { ICommentDocument, ICommentModel } from "../schemas/CommentSchema";
 import to from "await-to-js";
 
@@ -16,7 +15,7 @@ export class CommentRepository implements ICommentRepository {
         this.CommentModel = CommentModel;
     }
 
-    async createComment(commentProps: IComment): Promise<Comment> {
+    async createComment(commentProps: IComment): Promise<ICommentDocument> {
         const [err, comment] = await to<ICommentDocument>(new this.CommentModel({
             text: commentProps.text,
             userID: commentProps.userID,
@@ -44,7 +43,7 @@ export class CommentRepository implements ICommentRepository {
         return this.CommentModel.findByIdAndRemove(commentID);
     }
 
-    async updateComment(commentID: string, updateProps: any): Promise<Comment> {
+    async updateComment(commentID: string, updateProps: any): Promise<ICommentDocument> {
         return this.CommentModel.findByIdAndUpdate(commentID, updateProps);
     }
 
