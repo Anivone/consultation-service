@@ -10,6 +10,7 @@
     "post-service": "cd post-service && npm run dev",
     "comment-service": "cd comment-service & npm run dev",
     "consultation-service": "cd consultation-service & npm run dev",
+    "sphere-service": "cd sphere-service & npm run dev",
 
     "test": "echo \"Error: no test specified\" && exit 1"
   },
