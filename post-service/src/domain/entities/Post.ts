@@ -14,11 +14,12 @@ export class Post {
     };
     views: number;
     sphereID: string;
+    specialty: string;
     status: Status;
     edited: boolean;
 
     constructor({
-                    title, description, userID, relevance, tags, date, views, sphereID, status, edited
+                    title, description, userID, relevance, tags, date, views, sphereID, specialty, status, edited
                 }: IPost) {
         this.title = title;
         this.description = description;
@@ -28,6 +29,7 @@ export class Post {
         this.date = date;
         this.views = views;
         this.sphereID = sphereID;
+        this.specialty = specialty;
         this.status = status;
         this.edited = edited;
     }

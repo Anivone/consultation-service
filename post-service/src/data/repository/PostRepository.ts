@@ -25,6 +25,7 @@ export class PostRepository implements IPostRepository {
             date: postProps.date,
             views: postProps.views,
             sphereID: postProps.sphereID,
+            specialty: postProps.specialty,
             status: postProps.status,
             edited: postProps.edited
         }).save());

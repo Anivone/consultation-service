@@ -17,6 +17,7 @@ export interface IPost {
     },
     views: number,
     sphereID: string,
+    specialty: string,
     status: Status,
     edited: boolean
 }

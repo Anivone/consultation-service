@@ -50,6 +50,10 @@ const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
         type: Schema.Types.String,
         required: true,
     },
+    specialty: {
+        type: Schema.Types.String,
+        required: true,
+    },
     status: {
         type: Schema.Types.String,
         enum: Status,
