@@ -7,7 +7,6 @@ import makeContainer from "./Container";
 import * as awilix from 'awilix';
 import { scopePerRequest } from "awilix-express";
 import * as mongoose from "mongoose";
-import mongoModelsConfig from "./MongoConfig";
 
 export class ExpressConfig {
     app: express.Express;

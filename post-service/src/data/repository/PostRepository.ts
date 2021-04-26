@@ -16,7 +16,7 @@ export class PostRepository implements IPostRepository {
         this.PostModel = PostModel;
     }
 
-    async createPost(postProps: IPost): Promise<Post> {
+    async createPost(postProps: IPost): Promise<IPostDocument> {
         const [err, post] = await to<IPostDocument>(new this.PostModel({
             title: postProps.title,
             description: postProps.description,
@@ -31,7 +31,7 @@ export class PostRepository implements IPostRepository {
 
         if (err) throw new Error(err.message);
 
-        return this.PostModel.toPost(post);
+        return post;
     }
 
     async deletePost(postID: string): Promise<IPostDocument> {

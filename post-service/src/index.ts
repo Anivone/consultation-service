@@ -7,7 +7,7 @@ import * as path from "path";
 dotenv.config({path: path.resolve(__dirname, '../../.env')});
 
 export default mongoose.createConnection(
-    `mongodb://${process.env.MONGO_DB_HOST}:${process.env.MONGO_DB_PORT}/post-service`,
+    `mongodb://${process.env.MONGO_DB_HOST}:${process.env.MONGO_DB_PORT}/${process.env.POST_SERVICE_DB}`,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,

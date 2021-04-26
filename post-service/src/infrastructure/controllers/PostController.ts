@@ -11,7 +11,7 @@ export class PostController {
     @Get('/')
     async getPosts(@Req() req: ContainerReq): Promise<PostDTO[]> {
         const { getPosts } = req.container.cradle;
-        const posts = await getPosts.execute();
+        const posts: IPostDocument[] = await getPosts.execute();
 
         return posts.map((post: IPostDocument) => post ? new PostDTO(post) : null);
     }
@@ -27,7 +27,7 @@ export class PostController {
     @POST('/')
     async createPost(@Req() req: ContainerReq, @Body() postProps: IPost): Promise<PostDTO> {
         const { createPost } = req.container.cradle;
-        const post = await createPost.execute(new Post(postProps));
+        const post: IPostDocument = await createPost.execute(new Post(postProps));
 
         return new PostDTO(post);
     }
