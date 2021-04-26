@@ -12,19 +12,7 @@ export class ExpressConfig {
 
         dotenv.config({path: path.resolve(__dirname, '../../../.env')});
 
-        this.app.use('/posts',
-            createProxyMiddleware('/posts', {
-                target: `http://localhost:${process.env.POST_SERVICE_PORT}`,
-                changeOrigin: true,
-            }));
-
-        this.app.use('/comments',
-            createProxyMiddleware('/comments', {
-                target: `http://localhost:${process.env.COMMENT_SERVICE_PORT}`,
-                changeOrigin: true,
-            }));
-
-
+        this.setUpProxies();
         this.setUpControllers();
     }
 
@@ -40,6 +28,25 @@ export class ExpressConfig {
         useExpressServer(this.app, {
             controllers: [controllerPath + extension]
         });
+    }
+
+    setUpProxies() {
+        this.app.use('/posts',
+            createProxyMiddleware('/posts', {
+                target: `http://localhost:${process.env.POST_SERVICE_PORT}`,
+                changeOrigin: true,
+            }));
+
+        this.app.use('/comments',
+            createProxyMiddleware('/comments', {
+                target: `http://localhost:${process.env.COMMENT_SERVICE_PORT}`,
+                changeOrigin: true,
+            }));
+        this.app.use('/consultations',
+            createProxyMiddleware('/consultations', {
+                target: `http://localhost:${process.env.CONSULTATION_SERVICE_PORT}`,
+                changeOrigin: true,
+            }));
     }
 
 }
