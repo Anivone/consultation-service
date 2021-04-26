@@ -10,13 +10,20 @@ export class ExpressConfig {
     constructor() {
         this.app = express();
 
+        dotenv.config({path: path.resolve(__dirname, '../../../.env')});
+
         this.app.use('/posts',
             createProxyMiddleware('/posts', {
-                target: 'http://localhost:5001',
+                target: `http://localhost:${process.env.POST_SERVICE_PORT}`,
                 changeOrigin: true,
             }));
 
-        dotenv.config({path: path.resolve(__dirname, '../../../.env')});
+        this.app.use('/comments',
+            createProxyMiddleware('/comments', {
+                target: `http://localhost:${process.env.COMMENT_SERVICE_PORT}`,
+                changeOrigin: true,
+            }));
+
 
         this.setUpControllers();
     }
