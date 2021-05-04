@@ -54,6 +54,12 @@ export class ExpressConfig {
                 target: `http://localhost:${process.env.SPHERE_SERVICE_PORT}`,
                 changeOrigin: true,
             }));
+
+        this.app.use('/specialties',
+            createProxyMiddleware('/specialties', {
+                target: `http://localhost:${process.env.SPHERE_SERVICE_PORT}`,
+                changeOrigin: true,
+            }));
     }
 
 }

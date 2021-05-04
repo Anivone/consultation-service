@@ -15,6 +15,7 @@ export default class PostDTO extends Post{
             date: postDocument.date,
             views: postDocument.views,
             sphereID: postDocument.sphereID,
+            specialty: postDocument.specialty,
             status: postDocument.status,
             edited: postDocument.edited
         });

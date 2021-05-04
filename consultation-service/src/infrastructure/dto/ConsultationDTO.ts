@@ -11,6 +11,7 @@ export default class ConsultationDTO extends Consultation{
             userID: commentDocument.userID,
             consultantID: commentDocument.consultantID,
             sphereID: commentDocument.sphereID,
+            specialty: commentDocument.specialty,
             companyName: commentDocument.companyName,
             description: commentDocument.description,
             price: commentDocument.price

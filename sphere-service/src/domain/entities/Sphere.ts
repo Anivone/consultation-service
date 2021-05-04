@@ -1,15 +1,11 @@
-import { ISphere, Specialty } from "./types";
+import { ISphere } from "./types";
 
 export class Sphere {
 
     name: string;
-    specialties: Specialty[];
 
-    constructor({
-                    name, specialties
-                }: ISphere) {
+    constructor({name}: ISphere) {
         this.name = name;
-        this.specialties = specialties;
     }
 
 }

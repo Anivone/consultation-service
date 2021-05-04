@@ -1,16 +1,16 @@
 import { ISphere } from "../entities/types";
-import { Sphere } from "../entities/Sphere";
+import SphereDTO from "../../infrastructure/dto/SphereDTO";
 
 export interface ISphereRepository {
 
-    getSpheres(filter?: any): Promise<Sphere[]>;
+    getSpheres(filter?: any): Promise<ISphere[]>;
 
-    getSphereById(sphereID: string): Promise<Sphere>;
+    getSphereById(sphereID: string): Promise<ISphere>;
 
-    createSphere(sphereProps: ISphere): Promise<Sphere>;
+    createSphere(sphereProps: ISphere): Promise<ISphere>;
 
-    updateSphere(sphereID: string, updateProps: any): Promise<Sphere>;
+    updateSphere(sphereID: string, updateProps: any): Promise<ISphere>;
 
-    deleteSphere(sphereID: string): Promise<Sphere>;
+    deleteSphere(sphereID: string): Promise<ISphere>;
 
 }
