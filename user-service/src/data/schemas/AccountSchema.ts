@@ -2,8 +2,7 @@ import * as bcrypt from 'bcrypt';
 import { Document, Model, Schema } from 'mongoose';
 import { IAccount, Role } from "../../domain/entities/types";
 
-export interface IAccountDocument extends IAccount, Document {
-    isValidPassword(password: string): boolean;
+export interface IAccountDocument extends Omit<IAccount, '_id'>, Document {
 }
 
 export interface IAccountModel extends IAccount, Model<IAccountDocument> {
@@ -38,10 +37,5 @@ AccountSchema.pre<IAccountDocument>(
         user.password = await bcrypt.hash(user.password, 10);
         next();
     });
-
-AccountSchema.methods.isValidPassword = async function (password: string) {
-    const user = this;
-    return await bcrypt.compare(password, user.password);
-}
 
 export default AccountSchema;

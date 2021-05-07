@@ -1,16 +1,15 @@
-import { User } from "../entities/User";
 import { IUser } from "../entities/types";
 
 export interface IUserRepository {
 
-    getUsers(filter?: any): Promise<User[]>;
+    getUsers(filter?: any): Promise<IUser[]>;
 
-    getUserById(postID: string): Promise<User>;
+    getUserById(postID: string): Promise<IUser>;
 
-    createUser(postProps: IUser): Promise<User>;
+    createUser(postProps: IUser): Promise<IUser>;
 
-    updateUser(postID: string, updateProps: any): Promise<User>;
+    updateUser(postID: string, updateProps: any): Promise<IUser>;
 
-    deleteUser(postID: string): Promise<User>;
+    deleteUser(postID: string): Promise<IUser>;
     
 }

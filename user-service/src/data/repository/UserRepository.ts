@@ -1,7 +1,8 @@
 import { IUserRepository } from "../../domain/gateway/IUserRepository";
-import { IUser } from "../../domain/entities/types";
-import { IUserDocument, IUserModel } from "../schemas/UserSchema";
+import { IAccount, IUser } from "../../domain/entities/types";
+import { IUserModel } from "../schemas/UserSchema";
 import to from "await-to-js";
+import { User } from "../../domain/entities/User";
 
 interface UserRepositoryProps {
     UserModel: IUserModel;
@@ -15,8 +16,8 @@ export class UserRepository implements IUserRepository {
         this.UserModel = UserModel;
     }
 
-    async createUser(userProps: IUser): Promise<IUserDocument> {
-        const [err, user] = await to<IUserDocument>(new this.UserModel({
+    async createUser(userProps: IUser): Promise<IUser> {
+        const [err, user] = await to<IUser>(new this.UserModel({
             firstName: userProps.firstName,
             lastName: userProps.lastName,
             middleName: userProps.middleName,
@@ -32,26 +33,26 @@ export class UserRepository implements IUserRepository {
             ratingID: userProps.ratingID,
         }).save());
 
-        if (err) throw new Error(err.message);
+        if (err) throw err;
 
-        return user;
+        return new User(user);
     }
 
-    async deleteUser(userID: string): Promise<IUserDocument> {
-        return this.UserModel.findByIdAndRemove(userID);
+    async deleteUser(userID: string): Promise<IUser> {
+        return new User(await this.UserModel.findByIdAndRemove(userID));
     }
 
-    async getUserById(userID: string): Promise<IUserDocument> {
-        return this.UserModel.findById(userID);
-
+    async getUserById(userID: string): Promise<IUser> {
+        return new User(await this.UserModel.findById(userID));
     }
 
-    async getUsers(filter?: any): Promise<IUserDocument[]> {
-        return this.UserModel.find(filter);
+    async getUsers(filter?: any): Promise<IUser[]> {
+        const users = await this.UserModel.find(filter);
+        return users.map(user => new User(user));
     }
 
-    async updateUser(userID: string, updateProps: any): Promise<IUserDocument> {
-        return this.UserModel.findByIdAndUpdate(userID, updateProps);
+    async updateUser(userID: string, updateProps: any): Promise<IUser> {
+        return new User(await this.UserModel.findByIdAndUpdate(userID, updateProps));
     }
 
 }

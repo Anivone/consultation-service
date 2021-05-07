@@ -2,15 +2,17 @@ import * as cors from "cors";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as path from "path";
-import { useExpressServer } from "routing-controllers";
-import makeContainer from "./Container";
-import * as awilix from 'awilix';
-import { scopePerRequest } from "awilix-express";
 import * as mongoose from "mongoose";
+import { useExpressServer } from "routing-controllers";
+import makeContainer  from "./Container";
+import { AwilixContainer } from 'awilix';
+import { scopePerRequest } from "awilix-express";
+import { checkRole } from "../infrastructure/middleware/CheckRole";
+import { ErrorMiddleware } from "../infrastructure/middleware/ErrorMiddleware";
 
 export class ExpressConfig {
     app: express.Express;
-    container: awilix.AwilixContainer;
+    container: AwilixContainer;
 
     constructor(connection: mongoose.Connection) {
         this.app = express();
@@ -35,9 +37,11 @@ export class ExpressConfig {
         const extension = env === 'PROD' ? '/*.js' : '/*.ts';
 
         useExpressServer(this.app, {
-            controllers: [controllerPath + extension]
+            controllers: [controllerPath + extension],
+            middlewares: [ErrorMiddleware],
+            authorizationChecker: checkRole,
+            defaultErrorHandler: false
         });
-
     }
 
 }

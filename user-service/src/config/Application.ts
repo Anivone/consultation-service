@@ -7,7 +7,7 @@ export class Application {
 
     constructor(connection: mongoose.Connection) {
         this.express = new ExpressConfig(connection);
-        const port = process.env.POST_SERVICE_PORT;
+        const port = process.env.USER_SERVICE_PORT;
         this.server = this.express.app.listen(port,
             () => console.log(`Server started ! Express: http://localhost:${port}`));
     }

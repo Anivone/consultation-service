@@ -4,6 +4,7 @@ export enum Role {
 }
 
 export interface IAccount {
+    _id?: string;
     email: string;
     password: string;
     userID: string;
@@ -11,6 +12,7 @@ export interface IAccount {
 }
 
 export interface IUser {
+    _id?: string;
     firstName: string;
     lastName: string;
     middleName?: string;

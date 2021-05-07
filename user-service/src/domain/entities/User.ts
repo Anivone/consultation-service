@@ -2,6 +2,7 @@ import { IUser } from "./types";
 
 export class User {
 
+    _id?: string;
     firstName: string;
     lastName: string;
     middleName?: string;
@@ -20,6 +21,7 @@ export class User {
     ratingID?: string;
 
     constructor({
+                    _id,
                     firstName,
                     lastName,
                     middleName,
@@ -34,6 +36,7 @@ export class User {
                     reviewsNumber,
                     ratingID,
                 }: IUser) {
+        this._id = _id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;

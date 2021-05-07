@@ -1,13 +1,13 @@
-import { IUseCase, UserUseCaseProps } from "./types";
-import { User } from "../entities/User";
-import { IUserRepository } from "../gateway/IUserRepository";
+import { IUseCase, UserUseCaseProps } from "../types";
+import { IUserRepository } from "../../gateway/IUserRepository";
+import { IUser } from "../../entities/types";
 
 interface UpdateUseCase {
     id: string,
     updateProps: any,
 }
 
-export class UpdateUser implements IUseCase<User> {
+export class UpdateUser implements IUseCase<IUser> {
 
     userRepository: IUserRepository;
 
@@ -15,7 +15,7 @@ export class UpdateUser implements IUseCase<User> {
         this.userRepository = userRepository;
     }
 
-    execute({ id, updateProps }: UpdateUseCase): Promise<User> {
+    execute({ id, updateProps }: UpdateUseCase): Promise<IUser> {
         return this.userRepository.updateUser(id, updateProps);
     }
 

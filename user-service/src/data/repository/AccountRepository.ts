@@ -2,6 +2,7 @@ import { IAccountRepository } from "../../domain/gateway/IAccountRepository";
 import { IAccount } from "../../domain/entities/types";
 import { IAccountDocument, IAccountModel } from "../schemas/AccountSchema";
 import to from "await-to-js";
+import { Account } from "../../domain/entities/Account";
 
 interface AccountRepositoryProps {
     AccountModel: IAccountModel;
@@ -15,8 +16,8 @@ export class AccountRepository implements IAccountRepository {
         this.AccountModel = AccountModel;
     }
 
-    async createAccount(accountProps: IAccount): Promise<IAccountDocument> {
-        const [err, account] = await to<IAccountDocument>(new this.AccountModel({
+    async createAccount(accountProps: IAccount): Promise<IAccount> {
+        const [err, account] = await to<IAccount>(new this.AccountModel({
             email: accountProps.email,
             password: accountProps.password,
             userID: accountProps.userID,
@@ -28,20 +29,19 @@ export class AccountRepository implements IAccountRepository {
         return account;
     }
 
-    async deleteAccount(accountID: string): Promise<IAccountDocument> {
+    async deleteAccount(accountID: string): Promise<IAccount> {
         return this.AccountModel.findByIdAndRemove(accountID);
     }
 
-    async getAccountById(accountID: string): Promise<IAccountDocument> {
+    async getAccountById(accountID: string): Promise<IAccount> {
         return this.AccountModel.findById(accountID);
-
     }
 
-    async getAccounts(filter?: any): Promise<IAccountDocument[]> {
+    async getAccounts(filter?: any): Promise<IAccount[]> {
         return this.AccountModel.find(filter);
     }
 
-    async updateAccount(accountID: string, updateProps: any): Promise<IAccountDocument> {
+    async updateAccount(accountID: string, updateProps: any): Promise<IAccount> {
         return this.AccountModel.findByIdAndUpdate(accountID, updateProps);
     }
 

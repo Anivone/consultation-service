@@ -1,16 +1,15 @@
-import { Account } from "../entities/Account";
 import { IAccount } from "../entities/types";
 
 export interface IAccountRepository {
 
-    getAccounts(filter?: any): Promise<Account[]>;
+    getAccounts(filter?: any): Promise<IAccount[]>;
 
-    getAccountById(postID: string): Promise<Account>;
+    getAccountById(postID: string): Promise<IAccount>;
 
-    createAccount(postProps: IAccount): Promise<Account>;
+    createAccount(postProps: IAccount): Promise<IAccount>;
 
-    updateAccount(postID: string, updateProps: any): Promise<Account>;
+    updateAccount(postID: string, updateProps: any): Promise<IAccount>;
 
-    deleteAccount(postID: string): Promise<Account>;
+    deleteAccount(postID: string): Promise<IAccount>;
 
 }

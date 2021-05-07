@@ -1,7 +1,7 @@
 import { Document, Model, Schema } from 'mongoose';
 import { IUser } from "../../domain/entities/types";
 
-export interface IUserDocument extends IUser, Document {
+export interface IUserDocument extends Omit<IUser, '_id'>, Document {
 }
 
 export interface IUserModel extends IUser, Model<IUserDocument> {
@@ -22,6 +22,7 @@ const UserSchema: Schema<IUserDocument> = new Schema<IUserDocument>({
     },
     phoneNumber: {
         type: Schema.Types.String,
+        unique: true,
         required: true,
     },
     location: {

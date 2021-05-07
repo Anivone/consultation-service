@@ -1,21 +1,24 @@
 import * as awilix from 'awilix';
-import { AccountRepository } from "../data/repository/AccountRepository";
 import * as mongoose from "mongoose";
+import { Request } from 'express';
 import mongoModelsConfig from "./MongoConfig";
 
-import { CreateAccount } from "../domain/use-cases/CreateAccount";
-import { DeleteAccount } from "../domain/use-cases/DeleteAccount";
-import { GetAccountById } from "../domain/use-cases/GetAccountById";
-import { GetAccounts } from "../domain/use-cases/GetAccounts";
-import { UpdateAccount } from "../domain/use-cases/UpdateAccount";
-
-import { CreateUser } from "../domain/use-cases/CreateUser";
-import { DeleteUser } from "../domain/use-cases/DeleteUser";
-import { GetUserById } from "../domain/use-cases/GetUserById";
-import { GetUsers } from "../domain/use-cases/GetUsers";
-import { UpdateUser } from "../domain/use-cases/UpdateUser";
-import { PromoteUser } from "../domain/use-cases/PromoteUser";
+import { AccountRepository } from "../data/repository/AccountRepository";
 import { UserRepository } from "../data/repository/UserRepository";
+
+import { CreateAccount } from "../domain/use-cases/account/CreateAccount";
+import { DeleteAccount } from "../domain/use-cases/account/DeleteAccount";
+import { GetAccountById } from "../domain/use-cases/account/GetAccountById";
+import { GetAccounts } from "../domain/use-cases/account/GetAccounts";
+import { UpdateAccount } from "../domain/use-cases/account/UpdateAccount";
+
+import { CreateUser } from "../domain/use-cases/user/CreateUser";
+import { DeleteUser } from "../domain/use-cases/user/DeleteUser";
+import { GetUserById } from "../domain/use-cases/user/GetUserById";
+import { GetUsers } from "../domain/use-cases/user/GetUsers";
+import { UpdateUser } from "../domain/use-cases/user/UpdateUser";
+import { PromoteUser } from "../domain/use-cases/user/PromoteUser";
+import { UserService } from "../infrastructure/services/UserService";
 
 export interface ContainerReq extends Request {
     container: awilix.AwilixContainer;
@@ -37,6 +40,9 @@ export default function makeContainer(connection: mongoose.Connection) {
         // Repositories
         accountRepository: awilix.asClass(AccountRepository).singleton(),
         userRepository: awilix.asClass(UserRepository).singleton(),
+
+        // Services
+        userService: awilix.asClass(UserService).singleton(),
 
         // Use-Cases
         createAccount: awilix.asClass(CreateAccount).singleton(),
