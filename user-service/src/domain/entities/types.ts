@@ -30,3 +30,12 @@ export interface IUser {
     reviewsNumber?: number;
     ratingID?: string;
 }
+
+export interface IRating {
+    _id?: string;
+    one?: number;
+    two?: number;
+    three?: number;
+    four?: number;
+    five?: number;
+}

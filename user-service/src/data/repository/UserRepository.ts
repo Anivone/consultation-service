@@ -29,7 +29,6 @@ export class UserRepository implements IUserRepository {
             isConsultant: userProps.isConsultant,
             position: userProps.position,
             consultationsNumber: userProps.consultationsNumber,
-            reviewsNumber: userProps.reviewsNumber,
             ratingID: userProps.ratingID,
         }).save());
 

@@ -4,12 +4,12 @@ export interface IUserRepository {
 
     getUsers(filter?: any): Promise<IUser[]>;
 
-    getUserById(postID: string): Promise<IUser>;
+    getUserById(userID: string): Promise<IUser>;
 
-    createUser(postProps: IUser): Promise<IUser>;
+    createUser(userProps: IUser): Promise<IUser>;
 
-    updateUser(postID: string, updateProps: any): Promise<IUser>;
+    updateUser(userID: string, updateProps: any): Promise<IUser>;
 
-    deleteUser(postID: string): Promise<IUser>;
+    deleteUser(userID: string): Promise<IUser>;
     
 }

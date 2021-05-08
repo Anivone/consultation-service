@@ -1,7 +1,7 @@
 import { IUserService, UserAccount } from "./types";
 import { CreateAccount } from "../../domain/use-cases/account/CreateAccount";
 import { CreateUser } from "../../domain/use-cases/user/CreateUser";
-import { IAccount, IUser } from "../../domain/entities/types";
+import { IAccount, IUser, Role } from "../../domain/entities/types";
 import to from "await-to-js";
 import { GetAccounts } from "../../domain/use-cases/account/GetAccounts";
 import * as bcrypt from "bcrypt";
@@ -71,7 +71,12 @@ export class UserService implements IUserService {
         if (err) throw err;
 
         const [err2, account] = await to<IAccount>(
-            this.createAccount.execute({ ...props, userID: user._id }));
+            this.createAccount.execute({
+                email: props.email,
+                password: props.password,
+                role: props.isConsultant ? Role.Consultant : Role.User,
+                userID: user._id
+            }));
         if (err2) throw err2;
 
         return {
@@ -91,7 +96,7 @@ export class UserService implements IUserService {
             email: account.email,
             password: account.password,
             role: account.role,
-            userID: user._id
+            userID: user._id,
         };
     }
 

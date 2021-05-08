@@ -12,9 +12,8 @@ import {
 import { IUser, Role } from "../../domain/entities/types";
 import { User } from "../../domain/entities/User";
 import { ContainerReq } from "../../config/Container";
-import { checkJwt } from "../middleware/CheckJwt";
+import { DeleteUser } from "../../domain/use-cases/user/DeleteUser";
 
-// @UseBefore(checkJwt)
 @Authorized([Role.Consultant])
 @JsonController('/users')
 export class UserController {
@@ -45,7 +44,7 @@ export class UserController {
 
     @Delete('/:id')
     async deleteUser(@Req() req: ContainerReq, @Param('id') id: string): Promise<IUser> {
-        const { deleteUser } = req.container.cradle;
+        const { deleteUser }: {deleteUser: DeleteUser} = req.container.cradle;
         return await deleteUser.execute(id);
     }
 

@@ -4,12 +4,12 @@ export interface IAccountRepository {
 
     getAccounts(filter?: any): Promise<IAccount[]>;
 
-    getAccountById(postID: string): Promise<IAccount>;
+    getAccountById(accountID: string): Promise<IAccount>;
 
-    createAccount(postProps: IAccount): Promise<IAccount>;
+    createAccount(accountProps: IAccount): Promise<IAccount>;
 
-    updateAccount(postID: string, updateProps: any): Promise<IAccount>;
+    updateAccount(accountID: string, updateProps: any): Promise<IAccount>;
 
-    deleteAccount(postID: string): Promise<IAccount>;
+    deleteAccount(accountID: string): Promise<IAccount>;
 
 }

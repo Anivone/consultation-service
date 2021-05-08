@@ -59,10 +59,6 @@ const UserSchema: Schema<IUserDocument> = new Schema<IUserDocument>({
         type: Schema.Types.Number,
         required: false,
     },
-    reviewsNumber: {
-        type: Schema.Types.Number,
-        required: false,
-    },
     ratingID: {
         type: Schema.Types.String,
         required: false,
