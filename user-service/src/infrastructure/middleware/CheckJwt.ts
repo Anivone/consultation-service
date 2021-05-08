@@ -28,6 +28,7 @@ export async function checkJwt(req: Request, res: Response, next: NextFunction) 
         data: { userID: data.userID, email: data.email, role: data.role }
     }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
+    req.cookies.token = newToken;
     res.setHeader('Authorization', 'Bearer ' + newToken);
 
     next();
