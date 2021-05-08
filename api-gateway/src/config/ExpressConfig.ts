@@ -47,12 +47,12 @@ export class ExpressConfig {
                 target: `http://localhost:${process.env.USER_SERVICE_PORT}`,
                 changeOrigin: true,
                 cookieDomainRewrite: 'localhost',
-                // onProxyRes(proxyRes: http.IncomingMessage) {
-                //     const proxyAuth = proxyRes.headers.authorization;
-                //     if (proxyAuth) {
-                //         JwtMiddleware.token = proxyAuth.split(' ')[1];
-                //     }
-                // }
+                onProxyRes(proxyRes: http.IncomingMessage) {
+                    const proxyAuth = proxyRes.headers.authorization;
+                    if (proxyAuth) {
+                        JwtMiddleware.token = proxyAuth.split(' ')[1];
+                    }
+                }
             }));
 
         this.app.use(this.jwtMiddleware.use);
