@@ -2,6 +2,7 @@ import { IPost, Status } from "./types";
 
 export class Post {
 
+    _id?: string;
     title: string;
     description: string;
     userID: string;
@@ -19,8 +20,20 @@ export class Post {
     edited: boolean;
 
     constructor({
-                    title, description, userID, relevance, tags, date, views, sphereID, specialty, status, edited
+                    _id,
+                    title,
+                    description,
+                    userID,
+                    relevance,
+                    tags,
+                    date,
+                    views,
+                    sphereID,
+                    specialty,
+                    status,
+                    edited
                 }: IPost) {
+        this._id = _id;
         this.title = title;
         this.description = description;
         this.userID = userID;

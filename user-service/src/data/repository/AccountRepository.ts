@@ -12,11 +12,11 @@ export class AccountRepository implements IAccountRepository {
 
     AccountModel: IAccountModel;
 
-    constructor({ AccountModel } : AccountRepositoryProps) {
+    constructor({ AccountModel }: AccountRepositoryProps) {
         this.AccountModel = AccountModel;
     }
 
-    async createAccount(accountProps: IAccount): Promise<IAccount> {
+    async createAccount(accountProps: IAccount): Promise<Account> {
         const [err, account] = await to<IAccount>(new this.AccountModel({
             email: accountProps.email,
             password: accountProps.password,
@@ -26,23 +26,24 @@ export class AccountRepository implements IAccountRepository {
 
         if (err) throw new Error(err.message);
 
-        return account;
+        return new Account(account);
     }
 
-    async deleteAccount(accountID: string): Promise<IAccount> {
-        return this.AccountModel.findByIdAndRemove(accountID);
+    async deleteAccount(accountID: string): Promise<Account> {
+        return new Account(await this.AccountModel.findByIdAndRemove(accountID));
     }
 
-    async getAccountById(accountID: string): Promise<IAccount> {
-        return this.AccountModel.findById(accountID);
+    async getAccountById(accountID: string): Promise<Account> {
+        return new Account(await this.AccountModel.findById(accountID));
     }
 
-    async getAccounts(filter?: any): Promise<IAccount[]> {
-        return this.AccountModel.find(filter);
+    async getAccounts(filter?: any): Promise<Account[]> {
+        const accounts = await this.AccountModel.find(filter);
+        return accounts.map(account => new Account(account));
     }
 
-    async updateAccount(accountID: string, updateProps: any): Promise<IAccount> {
-        return this.AccountModel.findByIdAndUpdate(accountID, updateProps);
+    async updateAccount(accountID: string, updateProps: any): Promise<Account> {
+        return new Account(await this.AccountModel.findByIdAndUpdate(accountID, updateProps));
     }
 
 }

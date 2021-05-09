@@ -1,10 +1,10 @@
 export enum Status {
     ACTIVE = 'active',
-    DRAFT = 'draft',
     CLOSED = 'closed'
 }
 
 export interface IPost {
+    _id?: string;
     title: string,
     description: string,
     userID: string,
@@ -20,4 +20,17 @@ export interface IPost {
     specialty: string,
     status: Status,
     edited: boolean
+}
+
+export interface IComment {
+    _id?: string;
+    text: string;
+    userID: string;
+    postID: string;
+    points?: number;
+    date: {
+        day: number,
+        month: number,
+        year: number
+    };
 }

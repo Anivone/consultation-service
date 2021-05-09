@@ -1,11 +1,9 @@
-import { model, Schema, Model, Document } from 'mongoose';
-import { IComment, Status } from "../../domain/entities/types";
-import { Comment } from "../../domain/entities/Comment";
+import { Schema, Model, Document } from 'mongoose';
+import { IComment } from "../../domain/entities/types";
 
-export interface ICommentDocument extends IComment, Document {}
+export interface ICommentDocument extends Omit<IComment, '_id'>, Document {}
 
 export interface ICommentModel extends IComment, Model<ICommentDocument> {}
-
 
 const CommentSchema: Schema<ICommentDocument> = new Schema<ICommentDocument>({
     text: {
@@ -22,7 +20,8 @@ const CommentSchema: Schema<ICommentDocument> = new Schema<ICommentDocument>({
     },
     points: {
         type: Schema.Types.Number,
-        required: true
+        required: true,
+        default: 0,
     },
     date: {
         day: {
@@ -37,12 +36,6 @@ const CommentSchema: Schema<ICommentDocument> = new Schema<ICommentDocument>({
             type: Schema.Types.Number,
             required: true
         }
-    },
-    status: {
-        type: Schema.Types.String,
-        enum: Status,
-        default: Status.DRAFT,
-        required: true
     }
 })
 

@@ -1,4 +1,5 @@
 import { IPostRepository } from "../gateway/IPostRepository";
+import { ICommentRepository } from "../gateway/ICommentRepository";
 
 export interface IUseCase<T> {
 
@@ -6,8 +7,10 @@ export interface IUseCase<T> {
 
 }
 
-export interface UseCaseProps {
-
+export interface PostUseCaseProps {
     postRepository: IPostRepository;
+}
 
+export interface CommentUseCaseProps {
+    commentRepository: ICommentRepository;
 }

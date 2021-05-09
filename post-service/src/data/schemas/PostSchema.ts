@@ -1,7 +1,7 @@
 import { Schema, Model, Document } from 'mongoose';
 import { IPost, Status } from "../../domain/entities/types";
 
-export interface IPostDocument extends IPost, Document {}
+export interface IPostDocument extends Omit<IPost, '_id'>, Document {}
 
 export interface IPostModel extends IPost, Model<IPostDocument> {
 }
@@ -21,7 +21,8 @@ const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
     },
     relevance: {
         type: Schema.Types.Number,
-        required: true
+        required: true,
+        default: 0,
     },
     tags: [{
        type: Schema.Types.String,
@@ -44,7 +45,8 @@ const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
     },
     views: {
         type: Schema.Types.Number,
-        required: true
+        required: true,
+        default: 0
     },
     sphereID: {
         type: Schema.Types.String,
@@ -63,6 +65,7 @@ const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
     edited: {
         type: Schema.Types.Boolean,
         required: true,
+        default: false
     }
 })
 
