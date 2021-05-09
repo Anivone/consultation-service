@@ -1,10 +1,8 @@
 import { ISphereRepository } from "../gateway/ISphereRepository";
-import { Sphere } from "../entities/Sphere";
 import { IUseCase, SphereUseCaseProps } from "./types";
 import { ISphere } from "../entities/types";
-import SphereDTO from "../../infrastructure/dto/SphereDTO";
 
-export class CreateSphere implements IUseCase<Sphere> {
+export class CreateSphere implements IUseCase<ISphere> {
 
     sphereRepository: ISphereRepository;
 
@@ -13,9 +11,7 @@ export class CreateSphere implements IUseCase<Sphere> {
     }
 
     execute(props: ISphere): Promise<ISphere> {
-        const sphere = new Sphere(props);
-
-        return this.sphereRepository.createSphere(sphere);
+        return this.sphereRepository.createSphere(props);
     }
 
 }

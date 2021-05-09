@@ -1,5 +1,4 @@
 import { ISphere } from "../entities/types";
-import SphereDTO from "../../infrastructure/dto/SphereDTO";
 
 export interface ISphereRepository {
 

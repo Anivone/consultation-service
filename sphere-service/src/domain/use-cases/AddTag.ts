@@ -1,13 +1,13 @@
 import { IUseCase, SphereUseCaseProps } from "./types";
 import { ISphereRepository } from "../gateway/ISphereRepository";
-import { ISphere } from "../entities/types";
+import { ISpecialty, ISphere } from "../entities/types";
 
-interface UpdateUseCase {
+interface UpdateSphereProps {
     id: string,
-    specialtyID: string,
+    tagName: string,
 }
 
-export class DeleteSpecialty implements IUseCase<ISphere> {
+export class AddTag implements IUseCase<ISphere> {
 
     sphereRepository: ISphereRepository;
 
@@ -15,14 +15,10 @@ export class DeleteSpecialty implements IUseCase<ISphere> {
         this.sphereRepository = sphereRepository;
     }
 
-    execute({ id, specialtyID }: UpdateUseCase): Promise<ISphere> {
+    execute({ id, tagName }: UpdateSphereProps): Promise<ISphere> {
         return this.sphereRepository.updateSphere(id,
             {
-                $pull: {
-                    specialties: {
-                        _id: specialtyID
-                    }
-                }
+                $push: { tags: tagName }
             });
     }
 

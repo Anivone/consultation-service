@@ -4,10 +4,10 @@ import { ISphere } from "../entities/types";
 
 interface UpdateUseCase {
     id: string,
-    updateProps: any,
+    tagName: string,
 }
 
-export class UpdateSphere implements IUseCase<ISphere> {
+export class DeleteTag implements IUseCase<ISphere> {
 
     sphereRepository: ISphereRepository;
 
@@ -15,8 +15,13 @@ export class UpdateSphere implements IUseCase<ISphere> {
         this.sphereRepository = sphereRepository;
     }
 
-    execute({ id, updateProps }: UpdateUseCase): Promise<ISphere> {
-        return this.sphereRepository.updateSphere(id, updateProps);
+    execute({ id, tagName }: UpdateUseCase): Promise<ISphere> {
+        return this.sphereRepository.updateSphere(id,
+            {
+                $pull: {
+                    tags: tagName
+                }
+            });
     }
 
 }

@@ -1,10 +1,8 @@
 import { IUseCase, SphereUseCaseProps } from "./types";
-import { Sphere } from "../entities/Sphere";
 import { ISphereRepository } from "../gateway/ISphereRepository";
-import SphereDTO from "../../infrastructure/dto/SphereDTO";
 import { ISphere } from "../entities/types";
 
-export class GetSpheres implements IUseCase<Sphere> {
+export class GetSpheres implements IUseCase<ISphere> {
 
     sphereRepository: ISphereRepository;
 
