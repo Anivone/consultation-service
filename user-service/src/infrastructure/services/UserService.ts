@@ -1,11 +1,13 @@
-import { IUserService, UserAccount } from "./types";
+import * as jwt from 'jsonwebtoken';
+import * as bcrypt from "bcrypt";
+import to from "await-to-js";
+import { IUserService } from "./types";
 import { CreateAccount } from "../../domain/use-cases/account/CreateAccount";
 import { CreateUser } from "../../domain/use-cases/user/CreateUser";
 import { IAccount, IUser, Role } from "../../domain/entities/types";
-import to from "await-to-js";
 import { GetAccounts } from "../../domain/use-cases/account/GetAccounts";
-import * as bcrypt from "bcrypt";
 import { GetUserById } from "../../domain/use-cases/user/GetUserById";
+import { UserAccount } from "../dto/IUserAccount";
 
 interface UserServiceProps {
     createAccount: CreateAccount;
@@ -21,15 +23,41 @@ export class UserService implements IUserService {
     private getUserById: GetUserById;
     private getAccounts: GetAccounts;
 
-    constructor({createAccount, createUser, getUserById, getAccounts}: UserServiceProps) {
+    constructor({ createAccount, createUser, getUserById, getAccounts }: UserServiceProps) {
         this.createAccount = createAccount;
         this.createUser = createUser;
         this.getUserById = getUserById;
         this.getAccounts = getAccounts;
     }
 
+    async authenticate(token: string): Promise<UserAccount> {
+        const jwtPayload: any = jwt.verify(token, process.env.JWT_SECRET);
+
+        let data;
+        if (typeof jwtPayload == 'object') {
+            data = jwtPayload.data;
+        } else {
+            throw new Error('JwtToken has no payload');
+        }
+
+        const [err, accountList] = await to<IAccount[]>(this.getAccounts.execute({ email: data.email }));
+        if (err) throw err;
+
+        if (!accountList[0]) throw new Error('User does not exist');
+
+        const account = accountList[0];
+        const [err2, user] = await to<IUser>(this.getUserById.execute(account.userID));
+
+        if (err2) throw err2;
+
+        return new UserAccount({
+            ...user,
+            ...account
+        });
+    }
+
     async login(email: string, password: string): Promise<UserAccount> {
-        const [err, accountList] = await to<IAccount[]>(this.getAccounts.execute({email: email}));
+        const [err, accountList] = await to<IAccount[]>(this.getAccounts.execute({ email: email }));
         if (err) throw err;
 
         if (!accountList[0]) throw new Error('User does not exist');
@@ -42,25 +70,10 @@ export class UserService implements IUserService {
 
         if (err2) throw err2;
 
-        return {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            middleName: user.middleName,
-            phoneNumber: user.phoneNumber,
-            location: user.location,
-            description: user.description,
-            posts: user.posts,
-            comments: user.comments,
-            isConsultant: user.isConsultant,
-            position: user.position,
-            consultationsNumber: user.consultationsNumber,
-            reviewsNumber: user.reviewsNumber,
-            ratingID: user.ratingID,
-            email: account.email,
-            password: account.password,
-            role: account.role,
-            userID: user._id
-        }
+        return new UserAccount({
+            ...user,
+            ...account
+        })
 
     }
 
@@ -79,25 +92,10 @@ export class UserService implements IUserService {
             }));
         if (err2) throw err2;
 
-        return {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            middleName: user.middleName,
-            phoneNumber: user.phoneNumber,
-            location: user.location,
-            description: user.description,
-            posts: user.posts,
-            comments: user.comments,
-            isConsultant: user.isConsultant,
-            position: user.position,
-            consultationsNumber: user.consultationsNumber,
-            reviewsNumber: user.reviewsNumber,
-            ratingID: user.ratingID,
-            email: account.email,
-            password: account.password,
-            role: account.role,
-            userID: user._id,
-        };
+        return new UserAccount({
+            ...user,
+            ...account
+        })
     }
 
     async isValidPassword(password: string, account: IAccount) {

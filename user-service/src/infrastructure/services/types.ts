@@ -1,12 +1,11 @@
-import { IAccount, IUser } from "../../domain/entities/types";
-
-export interface UserAccount extends Omit<IUser, '_id'>, Omit<IAccount, '_id'> {
-}
+import { IUserAccount } from "../dto/IUserAccount";
 
 export interface IUserService {
 
-    signup(props: UserAccount): Promise<UserAccount>;
+    authenticate(token: string): Promise<IUserAccount>
 
-    login(email: string, password: string): Promise<UserAccount>;
+    signup(props: IUserAccount): Promise<IUserAccount>;
+
+    login(email: string, password: string): Promise<IUserAccount>;
 
 }

@@ -32,6 +32,7 @@ export default class JwtMiddleware {
         }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
 
         req.cookies.token = newToken;
+
         res.setHeader('Authorization', 'Bearer ' + newToken);
 
         next();

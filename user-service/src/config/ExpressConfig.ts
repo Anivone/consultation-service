@@ -17,7 +17,7 @@ export class ExpressConfig {
     constructor(connection: mongoose.Connection) {
         this.app = express();
 
-        this.app.use(cors());
+        this.app.use(cors({exposedHeaders: 'Authorization'}));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({extended: false}));
 

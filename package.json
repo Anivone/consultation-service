@@ -4,11 +4,10 @@
   "description": "Application where users can ask questions, get answers and request private consultations. Microservice architecture is used. Application is based on RESTful API.",
   "main": "index.js",
   "scripts": {
-    "start:dev": "concurrently \"npm run api-gateway\" \"npm run post-service\" \"npm run comment-service\" \"npm run consultation-service\" \"npm run sphere-service\" \"npm run user-service\"",
+    "start:dev": "concurrently \"npm run api-gateway\" \"npm run post-service\" \"npm run consultation-service\" \"npm run sphere-service\" \"npm run user-service\"",
 
     "api-gateway": "cd api-gateway && npm run dev",
     "post-service": "cd post-service && npm run dev",
-    "comment-service": "cd comment-service & npm run dev",
     "consultation-service": "cd consultation-service & npm run dev",
     "sphere-service": "cd sphere-service & npm run dev",
     "user-service": "cd user-service & npm run dev",
