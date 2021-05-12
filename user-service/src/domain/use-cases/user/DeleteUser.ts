@@ -1,5 +1,5 @@
 import { IUseCase, UserUseCaseProps } from "../types";
-import { IUserRepository } from "../../gateway/IUserRepository";
+import { IPostUserRepository } from "../../gateway/IUserRepository";
 import { IUser } from "../../entities/types";
 import to from "await-to-js";
 import { DeleteRating } from "../rating/DeleteRating";
@@ -12,7 +12,7 @@ interface DeleteUserProps {
 
 export class DeleteUser implements IUseCase<IUser> {
 
-    userRepository: IUserRepository;
+    userRepository: IPostUserRepository;
     deleteRating: DeleteRating;
     deleteAccountByUserId: DeleteAccountByUserId;
 

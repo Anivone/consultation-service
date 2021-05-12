@@ -6,13 +6,13 @@ import {
     Param,
     Patch,
     Post,
-    Req
+    Req,
 } from "routing-controllers";
 import { IRating } from "../../domain/entities/types";
 import { Rating } from "../../domain/entities/Rating";
 import { ContainerReq } from "../../config/Container";
 
-@JsonController('/users/ratings')
+@JsonController('/posts/users/ratings')
 export class RatingController {
 
     @Get('/')

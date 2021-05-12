@@ -1,17 +1,17 @@
 import { IUseCase, UserUseCaseProps } from "../types";
 import { IRating, IUser } from "../../entities/types";
-import { IUserRepository } from "../../gateway/IUserRepository";
+import { IPostUserRepository } from "../../gateway/IUserRepository";
 import { CreateRating } from "../rating/CreateRating";
 import to from "await-to-js";
 
 interface CreateUserProps {
-    userRepository: IUserRepository;
+    userRepository: IPostUserRepository;
     createRating: CreateRating;
 }
 
 export class CreateUser implements IUseCase<IUser> {
 
-    private userRepository: IUserRepository;
+    private userRepository: IPostUserRepository;
     private createRating: CreateRating;
 
     constructor({ userRepository, createRating }: UserUseCaseProps & CreateUserProps) {

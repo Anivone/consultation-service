@@ -41,24 +41,24 @@ export class PostRepository implements IPostRepository {
 
         if (err) throw err;
 
-        return new Post(post);
+        return this.PostModel.toPost(post);
     }
 
     async deletePost(postID: string): Promise<Post> {
-        return new Post(await this.PostModel.findByIdAndRemove(postID));
+        return this.PostModel.toPost(await this.PostModel.findByIdAndRemove(postID));
     }
 
     async getPostById(postID: string): Promise<Post> {
-        return new Post(await this.PostModel.findById(postID));
+        return this.PostModel.toPost(await this.PostModel.findById(postID));
     }
 
     async getPosts(filter?: any): Promise<Post[]> {
         const posts = await this.PostModel.find(filter);
-        return posts.map(post => new Post(post));
+        return posts.map(post => this.PostModel.toPost(post));
     }
 
     async updatePost(postID: string, updateProps: any): Promise<Post> {
-        return new Post(await this.PostModel.findByIdAndUpdate(postID, updateProps));
+        return this.PostModel.toPost(await this.PostModel.findByIdAndUpdate(postID, updateProps));
     }
 
 }

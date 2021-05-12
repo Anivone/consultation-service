@@ -26,7 +26,7 @@ import { CreateRating } from "../domain/use-cases/rating/CreateRating";
 import { DeleteRating } from "../domain/use-cases/rating/DeleteRating";
 import { GetRatingById } from "../domain/use-cases/rating/GetRatingById";
 import { GetRatings } from "../domain/use-cases/rating/GetRatings";
-import { UpdateRating } from "../domain/use-cases/rating/UpdateAccount";
+import { UpdateRating } from "../domain/use-cases/rating/UpdateRating";
 import { DeleteAccountByUserId } from "../domain/use-cases/account/DeleteAccountByUserId";
 
 export interface ContainerReq extends Request {

@@ -27,24 +27,24 @@ export class CommentRepository implements ICommentRepository {
         }).save());
         if (err) throw err;
 
-        return new Comment(comment);
+        return this.CommentModel.toComment(comment);
     }
 
     async getCommentById(postID: string): Promise<Comment> {
-        return new Comment(await this.CommentModel.findById(postID));
+        return this.CommentModel.toComment(await this.CommentModel.findById(postID));
     }
 
     async getComments(filter?: any): Promise<Comment[]> {
         const comments = await this.CommentModel.find(filter);
-        return comments.map(comment => new Comment(comment));
+        return comments.map(comment => this.CommentModel.toComment(comment));
     }
 
     async deleteComment(commentID: string): Promise<Comment> {
-        return new Comment(await this.CommentModel.findByIdAndRemove(commentID));
+        return this.CommentModel.toComment(await this.CommentModel.findByIdAndRemove(commentID));
     }
 
     async updateComment(commentID: string, updateProps: any): Promise<Comment> {
-        return new Comment(await this.CommentModel.findByIdAndUpdate(commentID, updateProps));
+        return this.CommentModel.toComment(await this.CommentModel.findByIdAndUpdate(commentID, updateProps));
     }
 
     async deletePostComments(postID: string): Promise<any> {

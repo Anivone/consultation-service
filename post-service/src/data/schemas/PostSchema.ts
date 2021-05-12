@@ -1,9 +1,11 @@
 import { Schema, Model, Document } from 'mongoose';
 import { IPost, Status } from "../../domain/entities/types";
+import { Post } from "../../domain/entities/Post";
 
 export interface IPostDocument extends Omit<IPost, '_id'>, Document {}
 
 export interface IPostModel extends IPost, Model<IPostDocument> {
+    toPost(post: IPost): Post;
 }
 
 const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
@@ -25,9 +27,9 @@ const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
         default: 0,
     },
     tags: [{
-       type: Schema.Types.String,
-       required: true,
-       default: []
+        type: Schema.Types.String,
+        required: true,
+        default: []
     }],
     date: {
         day: {
@@ -67,6 +69,27 @@ const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
         required: true,
         default: false
     }
-})
+});
+
+PostSchema.statics.toPost = (post: IPost) => {
+    return new Post({
+        _id: post._id.toString(),
+        title: post.title,
+        description: post.description,
+        userID: post.userID,
+        relevance: post.relevance,
+        tags: post.tags,
+        date: {
+            day: post.date.day,
+            month: post.date.month,
+            year: post.date.year,
+        },
+        views: post.views,
+        sphereID: post.sphereID,
+        specialty: post.specialty,
+        status: post.status,
+        edited: post.edited,
+    })
+}
 
 export default PostSchema;

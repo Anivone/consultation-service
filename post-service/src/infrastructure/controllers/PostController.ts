@@ -16,6 +16,7 @@ export class PostController {
 
     @Get('/:id')
     async getPost(@Req() req: ContainerReq, @Param('id') id: string): Promise<IPost> {
+        console.log('[X] getPost accessed :(');
         const { getPostById } = req.container.cradle;
         return await getPostById.execute(id);
     }

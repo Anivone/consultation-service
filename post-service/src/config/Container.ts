@@ -1,19 +1,36 @@
 import * as awilix from 'awilix';
-import { PostRepository } from "../data/repository/PostRepository";
 import * as mongoose from "mongoose";
 import mongoModelsConfig from "./MongoConfig";
+
+import { PostRepository } from "../data/repository/PostRepository";
+import { CommentRepository } from "../data/repository/CommentRepository";
+import { RatingRepository } from "../data/repository/RatingRepository";
+import { PostUserRepository } from "../data/repository/PostUserRepository";
+
 import { CreatePost } from "../domain/use-cases/post/CreatePost";
 import { DeletePost } from "../domain/use-cases/post/DeletePost";
 import { GetPostById } from "../domain/use-cases/post/GetPostById";
 import { GetPosts } from "../domain/use-cases/post/GetPosts";
 import { UpdatePost } from "../domain/use-cases/post/UpdatePost";
 
-import { CommentRepository } from "../data/repository/CommentRepository";
 import { CreateComment } from "../domain/use-cases/comment/CreateComment";
 import { DeleteComment } from "../domain/use-cases/comment/DeleteComment";
 import { GetComments } from "../domain/use-cases/comment/GetComments";
 import { UpdateComment } from "../domain/use-cases/comment/UpdateComment";
 import { GetCommentById } from "../domain/use-cases/comment/GetCommentById";
+
+import { CreateRating } from "../../../user-service/src/domain/use-cases/rating/CreateRating";
+import { DeleteRating } from "../../../user-service/src/domain/use-cases/rating/DeleteRating";
+import { GetRatingById } from "../../../user-service/src/domain/use-cases/rating/GetRatingById";
+import { GetRatings } from "../../../user-service/src/domain/use-cases/rating/GetRatings";
+import { UpdateRating } from "../../../user-service/src/domain/use-cases/rating/UpdateRating";
+
+import { UpdatePostUser } from "../domain/use-cases/user/UpdateUser";
+import { CreatePostUser } from "../domain/use-cases/user/CreatePostUser";
+import { PromotePostUser } from "../domain/use-cases/user/PromoteUser";
+import { GetPostUsers } from "../domain/use-cases/user/GetUsers";
+import { GetPostUserById } from "../domain/use-cases/user/GetPostUserById";
+import { DeletePostUser } from "../domain/use-cases/user/DeletePostUser";
 
 export interface ContainerReq extends Request {
     container: awilix.AwilixContainer;
@@ -21,7 +38,7 @@ export interface ContainerReq extends Request {
 
 export default function makeContainer(connection: mongoose.Connection) {
     const container = awilix.createContainer();
-    const { postModel, commentModel } = mongoModelsConfig(connection);
+    const { postModel, commentModel, ratingModel, postUserModel } = mongoModelsConfig(connection);
 
     container.register({
 
@@ -31,10 +48,14 @@ export default function makeContainer(connection: mongoose.Connection) {
         // Models
         PostModel: awilix.asValue(postModel),
         CommentModel: awilix.asValue(commentModel),
+        RatingModel: awilix.asValue(ratingModel),
+        PostUserModel: awilix.asValue(postUserModel),
 
         // Repositories
         postRepository: awilix.asClass(PostRepository).singleton(),
         commentRepository: awilix.asClass(CommentRepository).singleton(),
+        ratingRepository: awilix.asClass(RatingRepository).singleton(),
+        postUserRepository: awilix.asClass(PostUserRepository).singleton(),
 
         // Use-Cases
         createPost: awilix.asClass(CreatePost).singleton(),
@@ -48,6 +69,19 @@ export default function makeContainer(connection: mongoose.Connection) {
         getCommentById: awilix.asClass(GetCommentById).singleton(),
         getComments: awilix.asClass(GetComments).singleton(),
         updateComment: awilix.asClass(UpdateComment).singleton(),
+
+        createPostUser: awilix.asClass(CreatePostUser).singleton(),
+        deletePostUser: awilix.asClass(DeletePostUser).singleton(),
+        getPostUserById: awilix.asClass(GetPostUserById).singleton(),
+        getPostUsers: awilix.asClass(GetPostUsers).singleton(),
+        updatePostUser: awilix.asClass(UpdatePostUser).singleton(),
+        promotePostUser: awilix.asClass(PromotePostUser).singleton(),
+
+        createRating: awilix.asClass(CreateRating).singleton(),
+        deleteRating: awilix.asClass(DeleteRating).singleton(),
+        getRatingById: awilix.asClass(GetRatingById).singleton(),
+        getRatings: awilix.asClass(GetRatings).singleton(),
+        updateRating: awilix.asClass(UpdateRating).singleton(),
 
     })
 

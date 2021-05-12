@@ -1,5 +1,5 @@
 import { IAccountRepository } from "../gateway/IAccountRepository";
-import { IUserRepository } from "../gateway/IUserRepository";
+import { IPostUserRepository } from "../gateway/IUserRepository";
 import { IRatingRepository } from "../gateway/IRatingRepository";
 
 export interface IUseCase<T> {
@@ -11,7 +11,7 @@ export interface AccountUseCaseProps {
 }
 
 export interface UserUseCaseProps {
-    userRepository: IUserRepository;
+    userRepository: IPostUserRepository;
 }
 
 export interface RatingUseCaseProps {

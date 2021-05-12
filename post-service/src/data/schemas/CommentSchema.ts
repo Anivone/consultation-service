@@ -1,9 +1,12 @@
 import { Schema, Model, Document } from 'mongoose';
 import { IComment } from "../../domain/entities/types";
+import { Comment } from "../../domain/entities/Comment";
 
 export interface ICommentDocument extends Omit<IComment, '_id'>, Document {}
 
-export interface ICommentModel extends IComment, Model<ICommentDocument> {}
+export interface ICommentModel extends IComment, Model<ICommentDocument> {
+    toComment(comment: IComment): Comment;
+}
 
 const CommentSchema: Schema<ICommentDocument> = new Schema<ICommentDocument>({
     text: {
@@ -37,6 +40,21 @@ const CommentSchema: Schema<ICommentDocument> = new Schema<ICommentDocument>({
             required: true
         }
     }
-})
+});
+
+CommentSchema.statics.toComment = (comment: IComment) => {
+    return new Comment({
+        _id: comment._id.toString(),
+        text: comment.text,
+        userID: comment.userID,
+        postID: comment.postID,
+        points: comment.points,
+        date: {
+            day: comment.date.day,
+            month: comment.date.month,
+            year: comment.date.year,
+        },
+    })
+}
 
 export default CommentSchema;
