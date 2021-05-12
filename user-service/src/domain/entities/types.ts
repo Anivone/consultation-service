@@ -25,7 +25,7 @@ export interface IUser {
     posts: number;
     comments: number;
     isConsultant: boolean;
-    position?: string;
+    specialtyID?: string;
     consultationsNumber?: number;
     reviewsNumber?: number;
     ratingID?: string;

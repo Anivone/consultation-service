@@ -16,7 +16,7 @@ export class UserAccount {
     posts: number;
     comments: number;
     isConsultant: boolean;
-    position?: string;
+    specialtyID: string;
     consultationsNumber?: number;
     reviewsNumber?: number;
     ratingID?: string;
@@ -35,7 +35,7 @@ export class UserAccount {
         this.posts = props.posts;
         this.comments = props.comments;
         this.isConsultant = props.isConsultant;
-        this.position = props.position;
+        this.specialtyID = props.specialtyID;
         this.consultationsNumber = props.consultationsNumber;
         this.reviewsNumber = props.reviewsNumber;
         this.ratingID = props.ratingID;

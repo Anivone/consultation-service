@@ -1,5 +1,5 @@
 import { IUserRepository } from "../../domain/gateway/IUserRepository";
-import { IAccount, IUser } from "../../domain/entities/types";
+import { IUser } from "../../domain/entities/types";
 import { IUserModel } from "../schemas/UserSchema";
 import to from "await-to-js";
 import { User } from "../../domain/entities/User";
@@ -27,7 +27,7 @@ export class UserRepository implements IUserRepository {
             posts: userProps.posts,
             comments: userProps.comments,
             isConsultant: userProps.isConsultant,
-            position: userProps.position,
+            specialtyID: userProps.specialtyID,
             consultationsNumber: userProps.consultationsNumber,
             ratingID: userProps.ratingID,
         }).save());

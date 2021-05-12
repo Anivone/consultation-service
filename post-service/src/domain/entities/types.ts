@@ -34,3 +34,12 @@ export interface IComment {
         year: number
     };
 }
+
+export interface IPostUser {
+    _id?: string;
+    firstName: string;
+    lastName: string;
+    isConsultant: boolean;
+    specialtyID?: string;
+    ratingID?: string;
+}

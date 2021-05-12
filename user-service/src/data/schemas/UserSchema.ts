@@ -51,7 +51,7 @@ const UserSchema: Schema<IUserDocument> = new Schema<IUserDocument>({
         type: Schema.Types.Boolean,
         required: true,
     },
-    position: {
+    specialtyID: {
         type: Schema.Types.String,
         required: false,
     },

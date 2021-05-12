@@ -93,6 +93,12 @@ export class ExpressConfig {
                 changeOrigin: true,
             }));
 
+        this.app.use('/recommendations/*',
+            createProxyMiddleware('/recommendations', {
+                target: `http://localhost:${process.env.RECOMMENDATION_SERVICE_PORT}`,
+                changeOrigin: true,
+            }));
+
     }
 
 }
