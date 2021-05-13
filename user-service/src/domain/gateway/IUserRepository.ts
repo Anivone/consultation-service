@@ -1,6 +1,6 @@
 import { IUser } from "../entities/types";
 
-export interface IPostUserRepository {
+export interface IUserRepository {
 
     getUsers(filter?: any): Promise<IUser[]>;
 

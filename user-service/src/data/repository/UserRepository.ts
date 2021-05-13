@@ -1,4 +1,4 @@
-import { IPostUserRepository } from "../../domain/gateway/IUserRepository";
+import { IUserRepository } from "../../domain/gateway/IUserRepository";
 import { IUser } from "../../domain/entities/types";
 import { IUserModel } from "../schemas/UserSchema";
 import to from "await-to-js";
@@ -8,7 +8,7 @@ interface UserRepositoryProps {
     UserModel: IUserModel;
 }
 
-export class UserRepository implements IPostUserRepository {
+export class UserRepository implements IUserRepository {
 
     UserModel: IUserModel;
 

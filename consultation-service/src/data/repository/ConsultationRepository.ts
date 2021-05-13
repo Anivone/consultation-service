@@ -1,8 +1,7 @@
+import to from "await-to-js";
 import { IConsultationRepository } from "../../domain/gateway/IConsultationRepository";
 import { IConsultation } from "../../domain/entities/types";
-import { Consultation } from "../../domain/entities/Consultation";
-import { IConsultationDocument, IConsultationModel } from "../schemas/ConsultationSchema";
-import to from "await-to-js";
+import { IConsultationModel } from "../schemas/ConsultationSchema";
 
 interface ConsultationRepositoryProps {
     ConsultationModel: IConsultationModel;
@@ -16,38 +15,37 @@ export class ConsultationRepository implements IConsultationRepository {
         this.ConsultationModel = ConsultationModel;
     }
 
-    async createConsultation(consultationProps: IConsultation): Promise<IConsultationDocument> {
-        const [err, comment] = await to<IConsultationDocument>(new this.ConsultationModel({
+    async createConsultation(consultationProps: IConsultation): Promise<IConsultation> {
+        const [err, comment] = await to<IConsultation>(new this.ConsultationModel({
             title: consultationProps.title,
             userID: consultationProps.userID,
             consultantID: consultationProps.consultantID,
-            sphereID: consultationProps.sphereID,
-            specialty: consultationProps.specialty,
+            specialtyID: consultationProps.specialtyID,
             companyName: consultationProps.companyName,
             description: consultationProps.description,
             price: consultationProps.price
         }).save());
 
-        if (err) throw new Error(err.message);
+        if (err) throw err;
 
-        return comment;
+        return this.ConsultationModel.toConsultation(comment);
     }
 
-    async getConsultationById(postID: string): Promise<IConsultationDocument> {
-        return this.ConsultationModel.findById(postID);
-
+    async getConsultationById(postID: string): Promise<IConsultation> {
+        return this.ConsultationModel.toConsultation(await this.ConsultationModel.findById(postID));
     }
 
-    async getConsultations(filter?: any): Promise<IConsultationDocument[]> {
-        return this.ConsultationModel.find(filter);
+    async getConsultations(filter?: any): Promise<IConsultation[]> {
+        const consultations = await this.ConsultationModel.find(filter);
+        return consultations.map(consultation => this.ConsultationModel.toConsultation(consultation));
     }
 
-    async deleteConsultation(commentID: string): Promise<IConsultationDocument> {
-        return this.ConsultationModel.findByIdAndRemove(commentID);
+    async deleteConsultation(commentID: string): Promise<IConsultation> {
+        return this.ConsultationModel.toConsultation(await this.ConsultationModel.findByIdAndRemove(commentID));
     }
 
-    async updateConsultation(commentID: string, updateProps: any): Promise<IConsultationDocument> {
-        return this.ConsultationModel.findByIdAndUpdate(commentID, updateProps);
+    async updateConsultation(commentID: string, updateProps: any): Promise<IConsultation> {
+        return this.ConsultationModel.toConsultation(await this.ConsultationModel.findByIdAndUpdate(commentID, updateProps));
     }
 
 }

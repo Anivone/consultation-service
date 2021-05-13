@@ -1,10 +1,10 @@
 import { IUseCase, UserUseCaseProps } from "../types";
-import { IPostUserRepository } from "../../gateway/IUserRepository";
+import { IUserRepository } from "../../gateway/IUserRepository";
 import { IUser } from "../../entities/types";
 
 export class GetUserById implements IUseCase<IUser> {
 
-    userRepository: IPostUserRepository;
+    userRepository: IUserRepository;
 
     constructor({ userRepository }: UserUseCaseProps) {
         this.userRepository = userRepository;

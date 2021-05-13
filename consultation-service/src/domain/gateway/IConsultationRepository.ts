@@ -1,16 +1,15 @@
 import { IConsultation } from "../entities/types";
-import { Consultation } from "../entities/Consultation";
 
 export interface IConsultationRepository {
 
-    getConsultations(filter?: any): Promise<Consultation[]>;
+    getConsultations(filter?: any): Promise<IConsultation[]>;
 
-    getConsultationById(consultationID: string): Promise<Consultation>;
+    getConsultationById(consultationID: string): Promise<IConsultation>;
 
-    createConsultation(consultationProps: IConsultation): Promise<Consultation>;
+    createConsultation(consultationProps: IConsultation): Promise<IConsultation>;
 
-    updateConsultation(consultationID: string, updateProps: any): Promise<Consultation>;
+    updateConsultation(consultationID: string, updateProps: any): Promise<IConsultation>;
 
-    deleteConsultation(consultationID: string): Promise<Consultation>;
+    deleteConsultation(consultationID: string): Promise<IConsultation>;
 
 }

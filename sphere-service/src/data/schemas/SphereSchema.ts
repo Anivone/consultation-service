@@ -41,7 +41,7 @@ const SphereSchema: Schema<ISphereDocument> = new Schema<ISphereDocument>({
 
 SphereSchema.statics.toSphere = (sphere: ISphere) => {
     return new Sphere({
-        _id: sphere._id,
+        _id: sphere._id.toString(),
         name: sphere.name,
         specialties: sphere.specialties.map(specialty => new Specialty(specialty)),
         tags: sphere.tags

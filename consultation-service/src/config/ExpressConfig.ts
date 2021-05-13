@@ -7,7 +7,9 @@ import makeContainer from "./Container";
 import * as awilix from 'awilix';
 import { scopePerRequest } from "awilix-express";
 import * as mongoose from "mongoose";
-import mongoModelsConfig from "./MongoConfig";
+import { SpecialtyController } from "../infrastructure/controllers/SpecialtyController";
+import { ConsultUserController } from "../infrastructure/controllers/ConsultUserController";
+import { ConsultationController } from "../infrastructure/controllers/ConsultationController";
 
 export class ExpressConfig {
     app: express.Express;
@@ -36,7 +38,11 @@ export class ExpressConfig {
         const extension = env === 'PROD' ? '/*.js' : '/*.ts';
 
         useExpressServer(this.app, {
-            controllers: [controllerPath + extension]
+            controllers: [
+                SpecialtyController,
+                ConsultUserController,
+                ConsultationController
+            ]
         });
 
     }

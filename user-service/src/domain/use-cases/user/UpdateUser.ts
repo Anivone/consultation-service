@@ -1,5 +1,5 @@
 import { IUseCase, UserUseCaseProps } from "../types";
-import { IPostUserRepository } from "../../gateway/IUserRepository";
+import { IUserRepository } from "../../gateway/IUserRepository";
 import { IUser } from "../../entities/types";
 
 interface UpdateUseCase {
@@ -9,7 +9,7 @@ interface UpdateUseCase {
 
 export class UpdateUser implements IUseCase<IUser> {
 
-    userRepository: IPostUserRepository;
+    userRepository: IUserRepository;
 
     constructor({ userRepository }: UserUseCaseProps) {
         this.userRepository = userRepository;

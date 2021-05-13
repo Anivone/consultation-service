@@ -1,9 +1,12 @@
 import { model, Schema, Model, Document } from 'mongoose';
 import { IConsultation } from "../../domain/entities/types";
+import { Consultation } from "../../domain/entities/Consultation";
 
 export interface IConsultationDocument extends IConsultation, Document {}
 
-export interface IConsultationModel extends IConsultation, Model<IConsultationDocument> {}
+export interface IConsultationModel extends IConsultation, Model<IConsultationDocument> {
+    toConsultation(consultation: IConsultation): Consultation;
+}
 
 
 const ConsultationSchema: Schema<IConsultationDocument> = new Schema<IConsultationDocument>({
@@ -19,11 +22,7 @@ const ConsultationSchema: Schema<IConsultationDocument> = new Schema<IConsultati
         type: Schema.Types.String,
         required: true
     },
-    sphereID: {
-        type: Schema.Types.String,
-        required: true
-    },
-    specialty: {
+    specialtyID: {
         type: Schema.Types.String,
         required: true,
     },
@@ -39,6 +38,18 @@ const ConsultationSchema: Schema<IConsultationDocument> = new Schema<IConsultati
         type: Schema.Types.Number,
         required: true
     }
-})
+});
+
+ConsultationSchema.statics.toConsultation = (consultation: IConsultation) => {
+    return new Consultation({
+        title: consultation.title,
+        userID: consultation.userID,
+        consultantID: consultation.consultantID,
+        specialtyID: consultation.specialtyID,
+        companyName: consultation.companyName,
+        description: consultation.description,
+        price: consultation.price,
+    })
+}
 
 export default ConsultationSchema;
