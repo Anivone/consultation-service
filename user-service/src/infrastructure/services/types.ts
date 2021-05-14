@@ -9,3 +9,5 @@ export interface IUserService {
     login(email: string, password: string): Promise<IUserAccount>;
 
 }
+
+export type Vote = 1 | 2 | 3 | 4 | 5;

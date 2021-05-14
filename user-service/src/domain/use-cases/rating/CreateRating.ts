@@ -12,9 +12,7 @@ export class CreateRating implements IUseCase<IRating> {
     }
 
     execute(props: IRating): Promise<IRating> {
-        const rating = new Rating(props);
-
-        return this.ratingRepository.createRating(rating);
+        return this.ratingRepository.createRating(props);
     }
 
 }

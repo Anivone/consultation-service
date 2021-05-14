@@ -23,6 +23,7 @@ export class UserTagsRepository implements IUserTagsRepository {
         }).save());
 
         if (err) throw err;
+        console.log('[X] userTags: ' ,userTags)
 
         return this.UserTagsModel.toUserTags(userTags);
     }

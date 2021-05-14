@@ -26,24 +26,24 @@ export class AccountRepository implements IAccountRepository {
 
         if (err) throw new Error(err.message);
 
-        return new Account(account);
+        return this.AccountModel.toAccount(account);
     }
 
     async deleteAccount(accountID: string): Promise<Account> {
-        return new Account(await this.AccountModel.findByIdAndRemove(accountID));
+        return this.AccountModel.toAccount(await this.AccountModel.findByIdAndRemove(accountID));
     }
 
     async getAccountById(accountID: string): Promise<Account> {
-        return new Account(await this.AccountModel.findById(accountID));
+        return this.AccountModel.toAccount(await this.AccountModel.findById(accountID));
     }
 
     async getAccounts(filter?: any): Promise<Account[]> {
         const accounts = await this.AccountModel.find(filter);
-        return accounts.map(account => new Account(account));
+        return accounts.map(account => this.AccountModel.toAccount(account));
     }
 
     async updateAccount(accountID: string, updateProps: any): Promise<Account> {
-        return new Account(await this.AccountModel.findByIdAndUpdate(accountID, updateProps));
+        return this.AccountModel.toAccount(await this.AccountModel.findByIdAndUpdate(accountID, updateProps));
     }
 
 }

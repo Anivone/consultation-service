@@ -1,7 +1,6 @@
 import { IRating } from "./types";
 
 export class Rating {
-
     _id?: string;
     one?: number;
     two?: number;
@@ -17,5 +16,4 @@ export class Rating {
         this.four = four;
         this.five = five;
     }
-
 }

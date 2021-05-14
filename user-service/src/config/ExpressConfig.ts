@@ -40,7 +40,7 @@ export class ExpressConfig {
             controllers: [controllerPath + extension],
             middlewares: [ErrorMiddleware],
             authorizationChecker: checkRole,
-            defaultErrorHandler: false
+            // defaultErrorHandler: false
         });
     }
 

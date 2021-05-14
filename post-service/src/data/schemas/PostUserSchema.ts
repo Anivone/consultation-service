@@ -10,6 +10,10 @@ export interface IPostUserModel extends IPostUser, Model<IPostUserDocument> {
 }
 
 const PostUserSchema: Schema<IPostUserDocument> = new Schema<IPostUserDocument>({
+    userID: {
+        type: Schema.Types.String,
+        required: true,
+    },
     firstName: {
         type: Schema.Types.String,
         required: true,
@@ -35,6 +39,7 @@ const PostUserSchema: Schema<IPostUserDocument> = new Schema<IPostUserDocument>(
 PostUserSchema.statics.toPostUser = (postUser: IPostUser) => {
     return new PostUser({
         _id: postUser._id.toString(),
+        userID: postUser.userID,
         firstName: postUser.firstName,
         lastName: postUser.lastName,
         isConsultant: postUser.isConsultant,

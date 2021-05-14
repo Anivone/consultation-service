@@ -9,12 +9,12 @@ import {
     Post,
     Req, UseBefore
 } from "routing-controllers";
-import { IUser, Role } from "../../domain/entities/types";
+import { IRating, IUser, Role } from "../../domain/entities/types";
 import { User } from "../../domain/entities/User";
 import { ContainerReq } from "../../config/Container";
 import { DeleteUser } from "../../domain/use-cases/user/DeleteUser";
 
-@Authorized([Role.Consultant])
+// @Authorized([Role.Consultant])
 @JsonController('/users')
 export class UserController {
 
@@ -33,7 +33,19 @@ export class UserController {
     @Post('/')
     async createUser(@Req() req: ContainerReq, @Body() userProps: IUser): Promise<IUser> {
         const { createUser } = req.container.cradle;
-        return await createUser.execute(new User(userProps));
+        return await createUser.execute(userProps);
+    }
+
+    @Post('/:id/vote')
+    async voteRating(@Req() req: ContainerReq, @Param('id') id: string, @Body() body: any): Promise<IRating> {
+        const { userService } = req.container.cradle;
+        return await userService.vote(id, body.vote);
+    }
+
+    @Patch('/:id/promote')
+    async promoteUser(@Req() req: ContainerReq, @Param('id') id: string, @Body() body: any): Promise<IUser> {
+        const { userService } = req.container.cradle;
+        return await userService.promote(id, body);
     }
 
     @Patch('/:id')
@@ -44,8 +56,9 @@ export class UserController {
 
     @Delete('/:id')
     async deleteUser(@Req() req: ContainerReq, @Param('id') id: string): Promise<IUser> {
-        const { deleteUser }: {deleteUser: DeleteUser} = req.container.cradle;
-        return await deleteUser.execute(id);
+        const { userService } = req.container.cradle;
+        return await userService.delete(id);
     }
+
 
 }

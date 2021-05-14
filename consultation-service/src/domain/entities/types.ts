@@ -10,6 +10,7 @@ export interface IConsultation {
 
 export interface IConsultUser {
     _id?: string;
+    userID: string;
     firstName: string;
     lastName: string;
     middleName?: string;
@@ -17,7 +18,6 @@ export interface IConsultUser {
     isConsultant: boolean;
     specialtyID?: string;
     consultationsNumber?: number;
-    reviewsNumber?: number;
     ratingID?: string;
 }
 

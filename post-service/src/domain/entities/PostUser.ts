@@ -3,6 +3,7 @@ import { IPostUser } from "./types";
 export class PostUser {
 
     _id?: string;
+    userID: string;
     firstName: string;
     lastName: string;
     isConsultant: boolean;
@@ -11,13 +12,15 @@ export class PostUser {
 
     constructor({
                     _id,
+                    userID,
                     firstName,
                     lastName,
                     isConsultant,
-                    specialtyID ,
+                    specialtyID,
                     ratingID,
                 }: IPostUser) {
         this._id = _id;
+        this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.isConsultant = isConsultant;

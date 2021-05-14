@@ -3,6 +3,7 @@ import { IConsultUser } from "./types";
 export class ConsultUser {
 
     _id?: string;
+    userID: string;
     firstName: string;
     lastName: string;
     middleName?: string;
@@ -10,11 +11,11 @@ export class ConsultUser {
     isConsultant: boolean;
     specialtyID?: string;
     consultationsNumber?: number;
-    reviewsNumber?: number;
     ratingID?: string;
 
     constructor({
                     _id,
+                    userID,
                     firstName,
                     lastName,
                     middleName,
@@ -22,10 +23,10 @@ export class ConsultUser {
                     isConsultant,
                     specialtyID ,
                     consultationsNumber,
-                    reviewsNumber,
                     ratingID,
                 }: IConsultUser) {
         this._id = _id;
+        this.userID = userID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
@@ -33,7 +34,6 @@ export class ConsultUser {
         this.isConsultant = isConsultant;
         this.specialtyID = specialtyID;
         this.consultationsNumber = consultationsNumber;
-        this.reviewsNumber = reviewsNumber;
         this.ratingID = ratingID;
     }
 

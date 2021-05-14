@@ -63,12 +63,6 @@ export class ExpressConfig {
                 changeOrigin: true,
             }));
 
-        this.app.use('/comments/*',
-            createProxyMiddleware('/comments', {
-                target: `http://localhost:${process.env.COMMENT_SERVICE_PORT}`,
-                changeOrigin: true,
-            }));
-
         this.app.use('/consultations/*',
             createProxyMiddleware('/consultations', {
                 target: `http://localhost:${process.env.CONSULTATION_SERVICE_PORT}`,
@@ -77,12 +71,6 @@ export class ExpressConfig {
 
         this.app.use('/spheres/*',
             createProxyMiddleware('/spheres', {
-                target: `http://localhost:${process.env.SPHERE_SERVICE_PORT}`,
-                changeOrigin: true,
-            }));
-
-        this.app.use('/specialties/*',
-            createProxyMiddleware('/specialties', {
                 target: `http://localhost:${process.env.SPHERE_SERVICE_PORT}`,
                 changeOrigin: true,
             }));

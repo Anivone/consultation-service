@@ -25,7 +25,7 @@ export class RatingRepository implements IRatingRepository {
             five: ratingProps.five
         }).save());
 
-        if (err) throw err;
+        if (err) throw new Error(err.message);
 
         return this.RatingModel.toRating(rating);
     }

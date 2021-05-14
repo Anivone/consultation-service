@@ -5,10 +5,7 @@ import { IUser } from "../../entities/types";
 interface UpdateUseCase {
     id: string,
     updateProps: {
-        position: string;
-        consultationsNumber: number;
-        reviewsNumber: number;
-        ratingID: string;
+        specialtyID: string;
     },
 }
 

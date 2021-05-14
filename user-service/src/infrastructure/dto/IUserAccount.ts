@@ -1,6 +1,7 @@
 import { IAccount, IUser, Role } from "../../domain/entities/types";
 
-export interface IUserAccount extends Omit<IUser, '_id'>, Omit<IAccount, '_id'> {
+export interface IUserAccount extends Omit<IUser, '_id'>, Omit<Omit<IAccount, '_id'>, 'password'> {
+    password?: string;
 }
 
 export class UserAccount {
@@ -18,10 +19,9 @@ export class UserAccount {
     isConsultant: boolean;
     specialtyID: string;
     consultationsNumber?: number;
-    reviewsNumber?: number;
     ratingID?: string;
     email: string;
-    password: string;
+    password?: string;
     userID: string;
     role: Role;
 
@@ -37,7 +37,6 @@ export class UserAccount {
         this.isConsultant = props.isConsultant;
         this.specialtyID = props.specialtyID;
         this.consultationsNumber = props.consultationsNumber;
-        this.reviewsNumber = props.reviewsNumber;
         this.ratingID = props.ratingID;
         this.email = props.email;
         this.password = props.password;

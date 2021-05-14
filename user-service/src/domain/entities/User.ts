@@ -17,7 +17,6 @@ export class User {
     isConsultant: boolean;
     specialtyID ?: string;
     consultationsNumber?: number;
-    reviewsNumber?: number;
     ratingID?: string;
 
     constructor({
@@ -33,7 +32,6 @@ export class User {
                     isConsultant,
                     specialtyID ,
                     consultationsNumber,
-                    reviewsNumber,
                     ratingID,
                 }: IUser) {
         this._id = _id;
@@ -48,7 +46,6 @@ export class User {
         this.isConsultant = isConsultant;
         this.specialtyID = specialtyID;
         this.consultationsNumber = consultationsNumber;
-        this.reviewsNumber = reviewsNumber;
         this.ratingID = ratingID;
     }
 

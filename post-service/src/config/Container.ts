@@ -19,18 +19,18 @@ import { GetComments } from "../domain/use-cases/comment/GetComments";
 import { UpdateComment } from "../domain/use-cases/comment/UpdateComment";
 import { GetCommentById } from "../domain/use-cases/comment/GetCommentById";
 
-import { CreateRating } from "../../../user-service/src/domain/use-cases/rating/CreateRating";
-import { DeleteRating } from "../../../user-service/src/domain/use-cases/rating/DeleteRating";
-import { GetRatingById } from "../../../user-service/src/domain/use-cases/rating/GetRatingById";
-import { GetRatings } from "../../../user-service/src/domain/use-cases/rating/GetRatings";
-import { UpdateRating } from "../../../user-service/src/domain/use-cases/rating/UpdateRating";
-
-import { UpdatePostUser } from "../domain/use-cases/user/UpdateUser";
+import { UpdatePostUser } from "../domain/use-cases/user/UpdatePostUser";
 import { CreatePostUser } from "../domain/use-cases/user/CreatePostUser";
 import { PromotePostUser } from "../domain/use-cases/user/PromoteUser";
-import { GetPostUsers } from "../domain/use-cases/user/GetUsers";
+import { GetPostUsers } from "../domain/use-cases/user/GetPostUsers";
 import { GetPostUserById } from "../domain/use-cases/user/GetPostUserById";
 import { DeletePostUser } from "../domain/use-cases/user/DeletePostUser";
+
+import { DeleteRating } from "../domain/use-cases/rating/DeleteRating";
+import { UpdateRating } from "../domain/use-cases/rating/UpdateRating";
+import { CreateRating } from "../domain/use-cases/rating/CreateRating";
+import { GetRatingById } from "../domain/use-cases/rating/GetRatingById";
+import { GetRatings } from "../domain/use-cases/rating/GetRatings";
 
 export interface ContainerReq extends Request {
     container: awilix.AwilixContainer;

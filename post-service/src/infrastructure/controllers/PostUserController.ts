@@ -18,7 +18,6 @@ export class PostUserController {
 
     @Get('/')
     async getPostUsers(@Req() req: ContainerReq): Promise<IPostUser[]> {
-        console.log('[X] Controller accessed !');
         const { getPostUsers } = req.container.cradle;
         return await getPostUsers.execute();
     }

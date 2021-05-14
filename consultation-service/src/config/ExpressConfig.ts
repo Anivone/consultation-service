@@ -10,6 +10,7 @@ import * as mongoose from "mongoose";
 import { SpecialtyController } from "../infrastructure/controllers/SpecialtyController";
 import { ConsultUserController } from "../infrastructure/controllers/ConsultUserController";
 import { ConsultationController } from "../infrastructure/controllers/ConsultationController";
+import { RatingController } from "../infrastructure/controllers/RatingController";
 
 export class ExpressConfig {
     app: express.Express;
@@ -39,8 +40,9 @@ export class ExpressConfig {
 
         useExpressServer(this.app, {
             controllers: [
-                SpecialtyController,
+                RatingController,
                 ConsultUserController,
+                SpecialtyController,
                 ConsultationController
             ]
         });

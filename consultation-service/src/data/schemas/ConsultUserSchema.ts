@@ -1,15 +1,19 @@
 import { Document, Model, Schema } from 'mongoose';
-import { IUser } from "../../domain/entities/types";
-import { User } from "../../domain/entities/User";
+import { IConsultUser } from "../../domain/entities/types";
+import { ConsultUser } from "../../domain/entities/ConsultUser";
 
-export interface IUserDocument extends Omit<IUser, '_id'>, Document {
+export interface IConsultUserDocument extends Omit<IConsultUser, '_id'>, Document {
 }
 
-export interface IUserModel extends IUser, Model<IUserDocument> {
-    toUser(user: IUser): User;
+export interface IConsultUserModel extends IConsultUser, Model<IConsultUserDocument> {
+    toConsultUser(user: IConsultUser): ConsultUser;
 }
 
-const UserSchema: Schema<IUserDocument> = new Schema<IUserDocument>({
+const ConsultUserSchema: Schema<IConsultUserDocument> = new Schema<IConsultUserDocument>({
+    userID: {
+        type: Schema.Types.String,
+        required: true,
+    },
     firstName: {
         type: Schema.Types.String,
         required: true,
@@ -25,28 +29,6 @@ const UserSchema: Schema<IUserDocument> = new Schema<IUserDocument>({
     phoneNumber: {
         type: Schema.Types.String,
         unique: true,
-        required: true,
-    },
-    location: {
-        country: {
-            type: Schema.Types.String,
-            required: true,
-        },
-        city: {
-            type: Schema.Types.String,
-            required: true,
-        },
-    },
-    description: {
-        type: Schema.Types.String,
-        required: true,
-    },
-    posts: {
-        type: Schema.Types.Number,
-        required: true,
-    },
-    comments: {
-        type: Schema.Types.Number,
         required: true,
     },
     isConsultant: {
@@ -66,20 +48,14 @@ const UserSchema: Schema<IUserDocument> = new Schema<IUserDocument>({
         required: false,
     },
 });
-UserSchema.statics.toUser = (user: IUser) => {
-    return new User({
+ConsultUserSchema.statics.toConsultUser = (user: IConsultUser) => {
+    return new ConsultUser({
         _id: user._id.toString(),
+        userID: user.userID,
         firstName: user.firstName,
         lastName: user.lastName,
         middleName: user.middleName,
         phoneNumber: user.phoneNumber,
-        location: {
-            country: user.location.country,
-            city: user.location.city,
-        },
-        description: user.description,
-        posts: user.posts,
-        comments: user.comments,
         isConsultant: user.isConsultant,
         specialtyID: user.specialtyID,
         consultationsNumber: user.consultationsNumber,
@@ -87,4 +63,4 @@ UserSchema.statics.toUser = (user: IUser) => {
     })
 };
 
-export default UserSchema;
+export default ConsultUserSchema;

@@ -4,7 +4,7 @@ import { ContainerReq } from "../../config/Container";
 import { AddTag } from "../../domain/use-cases/userTags/AddTag";
 import { DeleteTag } from "../../domain/use-cases/userTags/DeleteTag";
 
-@Controller('/user-tags')
+@Controller('/recommendations/user-tags')
 export class UserTagsController {
 
     @Get('/')
@@ -20,16 +20,16 @@ export class UserTagsController {
     }
 
     @Post('/')
-    async createUserTags(@Req() req: ContainerReq, @Body() sphereProps: IUserTags): Promise<IUserTags> {
+    async createUserTags(@Req() req: ContainerReq, @Body() userTagsProps: IUserTags): Promise<IUserTags> {
         const { createUserTags } = req.container.cradle;
-        return await createUserTags.execute(sphereProps);
+        return await createUserTags.execute(userTagsProps);
     }
 
     @Post('/:id/tags')
-    async addTag(@Req() req: ContainerReq, @Param('id') sphereID: string,
+    async addTag(@Req() req: ContainerReq, @Param('id') userTagsID: string,
                  @Body() tag: { name: string }): Promise<IUserTags> {
         const { addTag }: { addTag: AddTag } = req.container.cradle;
-        return await addTag.execute({ id: sphereID, tagName: tag.name });
+        return await addTag.execute({ id: userTagsID, tagName: tag.name });
     }
 
     @Patch('/:id')

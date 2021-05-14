@@ -26,12 +26,8 @@ export class DeleteUser implements IUseCase<IUser> {
         const [err, user] = await to<IUser>(this.userRepository.getUserById(props));
         if (err) throw err;
 
-        console.log('[X] DeleteUser user: ', user);
-
         const [err2, rating] = await to(this.deleteRating.execute(user.ratingID));
         if (err2) throw err2;
-
-        console.log('[X] DeleteUser rating: ', rating);
 
         const [err3] = await to(this.deleteAccountByUserId.execute(user._id));
         if (err3) throw err3;

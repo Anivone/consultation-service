@@ -2,7 +2,6 @@ import { IUserRepository } from "../../domain/gateway/IUserRepository";
 import { IUser } from "../../domain/entities/types";
 import { IUserModel } from "../schemas/UserSchema";
 import to from "await-to-js";
-import { User } from "../../domain/entities/User";
 
 interface UserRepositoryProps {
     UserModel: IUserModel;
@@ -31,27 +30,27 @@ export class UserRepository implements IUserRepository {
             consultationsNumber: userProps.consultationsNumber,
             ratingID: userProps.ratingID,
         }).save());
-
+        console.log('[X] createUser user: ', user);
         if (err) throw err;
 
-        return new User(user);
+        return this.UserModel.toUser(user);
     }
 
     async deleteUser(userID: string): Promise<IUser> {
-        return new User(await this.UserModel.findByIdAndRemove(userID));
+        return this.UserModel.toUser(await this.UserModel.findByIdAndRemove(userID));
     }
 
     async getUserById(userID: string): Promise<IUser> {
-        return new User(await this.UserModel.findById(userID));
+        return this.UserModel.toUser(await this.UserModel.findById(userID));
     }
 
     async getUsers(filter?: any): Promise<IUser[]> {
         const users = await this.UserModel.find(filter);
-        return users.map(user => new User(user));
+        return users.map(user => this.UserModel.toUser(user));
     }
 
     async updateUser(userID: string, updateProps: any): Promise<IUser> {
-        return new User(await this.UserModel.findByIdAndUpdate(userID, updateProps));
+        return this.UserModel.toUser(await this.UserModel.findByIdAndUpdate(userID, updateProps));
     }
 
 }

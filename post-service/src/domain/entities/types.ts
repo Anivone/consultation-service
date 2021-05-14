@@ -37,6 +37,7 @@ export interface IComment {
 
 export interface IPostUser {
     _id?: string;
+    userID: string;
     firstName: string;
     lastName: string;
     isConsultant: boolean;

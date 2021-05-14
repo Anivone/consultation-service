@@ -2,7 +2,6 @@ import { IPostUserRepository } from "../../domain/gateway/IPostUserRepository";
 import { IPostUser } from "../../domain/entities/types";
 import { IPostUserModel } from "../schemas/PostUserSchema";
 import to from "await-to-js";
-import { PostUser } from "../../domain/entities/PostUser";
 
 interface PostUserRepositoryProps {
     PostUserModel: IPostUserModel;
@@ -18,6 +17,7 @@ export class PostUserRepository implements IPostUserRepository {
 
     async createPostUser(userProps: IPostUser): Promise<IPostUser> {
         const [err, user] = await to<IPostUser>(new this.PostUserModel({
+            userID: userProps.userID,
             firstName: userProps.firstName,
             lastName: userProps.lastName,
             isConsultant: userProps.isConsultant,

@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Req } from "routing-
 import { IPostViewers } from "../../domain/entities/types";
 import { ContainerReq } from "../../config/Container";
 
-@Controller('/post-viewers')
+@Controller('/recommendations/post-viewers')
 export class PostViewersController {
 
     @Get('/')
