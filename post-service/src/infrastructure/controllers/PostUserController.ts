@@ -17,9 +17,9 @@ import { DeletePostUser } from "../../domain/use-cases/user/DeletePostUser";
 export class PostUserController {
 
     @Get('/')
-    async getPostUsers(@Req() req: ContainerReq): Promise<IPostUser[]> {
-        const { getPostUsers } = req.container.cradle;
-        return await getPostUsers.execute();
+    async getPostUsers(@Req() req: ContainerReq): Promise<any> {
+        const { getPostUsersWithRatings } = req.container.cradle;
+        return await getPostUsersWithRatings.execute();
     }
 
     @Get('/:id')

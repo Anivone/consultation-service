@@ -1,8 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ContainerContext from "../../context/ContainerContext";
 import { Button, makeStyles, TextField } from "@material-ui/core";
 import to from "await-to-js";
-import { IAccount } from "../../domain/entities/types";
+import { IUserAccount } from "../../domain/entities/IUserAccount";
 import { useHistory } from 'react-router-dom';
 
 interface LoginPageState {
@@ -11,6 +11,9 @@ interface LoginPageState {
 }
 
 const useStyles = makeStyles({
+    bgColor: {
+        bgColor: '#f5f5f5',
+    },
     title: {
         fontSize: '36px'
     },
@@ -19,6 +22,12 @@ const useStyles = makeStyles({
         alignContent: 'center',
         fontSize: '14px',
         fontColor: '#646464',
+    },
+    textField: {
+        backgroundColor: '#fff !important',
+        '& .MuiFilledInput-root': {
+            backgroundColor: '#fff !important'
+        }
     }
 })
 
@@ -33,8 +42,21 @@ const LoginPage = () => {
         password: '',
     });
 
+    useEffect(() => {
+        (async () => {
+            const token = localStorage.getItem('token');
+
+            if (!token) return;
+
+            const [err, account] = await to<IUserAccount | null>(authService.authenticate());
+            if (err) throw err;
+
+            if (!account) return;
+        })();
+    }, []);
+
     const login = async (evt: any) => {
-        const [err, user] = await to<IAccount | null>(
+        const [err, user] = await to<IUserAccount | null>(
             authService.login(state.email, state.password));
         if (err) throw err;
         if (!user) return;
@@ -61,22 +83,22 @@ const LoginPage = () => {
     }
 
     return (
-        <div className='vw-100 vh-100 d-flex flex-row justify-content-center align-items-center'>
+        <div className='vw-100 vh-100 bg-main d-flex flex-row justify-content-center align-items-center'>
             <div className='w-75 d-flex flex-row justify-content-center align-items-center'>
                 <div className='w-100 h-100 d-flex flex-row justify-content-center align-items-center'>
                     <div className='w-75 d-flex flex-column justify-content-center align-items-center'>
                         <div className='w-100 mb-5 d-flex flex-column justify-content-center align-items-center'>
                             <div className='w-100 mb-5 d-flex flex-row justify-content-center align-items-center'>
-                                <span className={classes.title}>Увійти до аккаунту</span>
+                                <span className={classes.title}>Login</span>
                             </div>
                             <div className='w-50 d-flex flex-column justify-content-center align-items-center'>
                                 <TextField
-                                    className='w-75 mb-4'
+                                    className={'w-75 mb-1'}
                                     fullWidth
                                     required
                                     autoFocus
-                                    label="Електронна пошта"
-                                    variant="outlined"
+                                    label="Email"
+                                    variant={"outlined"}
                                     placeholder={'example@mail.com'}
                                     value={state.email}
                                     onChange={onEmailChange}
@@ -86,8 +108,8 @@ const LoginPage = () => {
                                     required
                                     fullWidth
                                     type={'password'}
-                                    label="Пароль"
-                                    variant="outlined"
+                                    label="Password"
+                                    variant={"outlined"}
                                     value={state.password}
                                     onChange={onPasswordChange}
                                 />
@@ -100,12 +122,12 @@ const LoginPage = () => {
                                 color={"primary"}
                                 onClick={login}
                             >
-                                Увійти
+                                Login
                             </Button>
                         </div>
                         <div
                             className='w-100 mt-3 mb-3 d-flex flex-row justify-content-center align-items-center'>
-                            <span className={classes.registerLabel}>Або якщо ви ще не зареєстровані</span>
+                            <span className={classes.registerLabel}>Or if you dont have an account</span>
                         </div>
                         <div className='w-25 d-flex flex-column justify-content-center align-items-center'>
                             <Button
@@ -114,7 +136,7 @@ const LoginPage = () => {
                                 color={"primary"}
                                 onClick={registrationRedirect}
                             >
-                                Зареєструватися
+                                Register
                             </Button>
                         </div>
                     </div>

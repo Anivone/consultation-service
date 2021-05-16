@@ -1,8 +1,10 @@
-import React  from 'react';
+import React from 'react';
 import './App.css';
 import './bootstrap.css';
 import { initAxiosInterceptors } from "./helpers/AxiosInterceptor";
 import Container from "./components/Container";
+import { BrowserRouter } from "react-router-dom";
+import ContainerContext from "./context/ContainerContext";
 
 const App = () => {
 
@@ -11,7 +13,9 @@ const App = () => {
     console.log('App() re-rendered !');
 
     return (
-        <Container/>
+        <BrowserRouter>
+            <Container/>
+        </BrowserRouter>
     );
 }
 

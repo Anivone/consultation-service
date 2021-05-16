@@ -16,12 +16,16 @@ export class UserRepository implements IUserRepository {
     }
 
     async createUser(userProps: IUser): Promise<IUser> {
+        console.log('[X] userProps: ', userProps);
         const [err, user] = await to<IUser>(new this.UserModel({
             firstName: userProps.firstName,
             lastName: userProps.lastName,
             middleName: userProps.middleName,
             phoneNumber: userProps.phoneNumber,
-            location: userProps.location,
+            location: {
+                country: userProps.location.country,
+                city: userProps.location.city,
+            },
             description: userProps.description,
             posts: userProps.posts,
             comments: userProps.comments,

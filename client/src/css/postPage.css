@@ -1,0 +1,12 @@
+.card-container {
+    width: 85%;
+}
+
+.comment-content {
+    min-height: 140px;
+    width: 90%;
+}
+
+.comment-points {
+    width: 10%;
+}

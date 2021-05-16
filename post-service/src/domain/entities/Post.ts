@@ -14,7 +14,6 @@ export class Post {
         year: number
     };
     views: number;
-    sphereID: string;
     specialty: string;
     status: Status;
     edited: boolean;
@@ -28,7 +27,6 @@ export class Post {
                     tags,
                     date,
                     views,
-                    sphereID,
                     specialty,
                     status,
                     edited
@@ -41,7 +39,6 @@ export class Post {
         this.tags = tags;
         this.date = date;
         this.views = views;
-        this.sphereID = sphereID;
         this.specialty = specialty;
         this.status = status;
         this.edited = edited;

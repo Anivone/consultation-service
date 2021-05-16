@@ -7,8 +7,8 @@ export class CommentController {
 
     @Get('/')
     async getComments(@Req() req: ContainerReq): Promise<IComment[]> {
-        const { getComments } = req.container.cradle;
-        return await getComments.execute();
+        const { getCommentsWithUser } = req.container.cradle;
+        return await getCommentsWithUser.execute();
     }
 
     @Get('/:id')
@@ -27,6 +27,16 @@ export class CommentController {
     async updateComment(@Req() req: ContainerReq, @Body() updateProps: any, @Param('id') id: string): Promise<IComment> {
         const { updateComment } = req.container.cradle;
         return await updateComment.execute({ id, updateProps});
+    }
+
+    @Patch('/:id/vote')
+    async voteComment(@Req() req: ContainerReq, @Body() updateProps: any, @Param('id') id: string): Promise<any> {
+        const { updateComment } = req.container.cradle;
+        return await updateComment.execute({ id, updateProps: {
+                $inc: {
+                    points: updateProps.vote
+                }
+            }})
     }
 
     @Delete('/:id')

@@ -15,7 +15,7 @@ export class User {
     posts: number;
     comments: number;
     isConsultant: boolean;
-    position?: string;
+    specialtyID?: string;
     consultationsNumber?: number;
     reviewsNumber?: number;
     ratingID?: string;
@@ -31,7 +31,7 @@ export class User {
                     posts,
                     comments,
                     isConsultant,
-                    position,
+                    specialtyID,
                     consultationsNumber,
                     reviewsNumber,
                     ratingID,
@@ -46,7 +46,7 @@ export class User {
         this.posts = posts;
         this.comments = comments;
         this.isConsultant = isConsultant;
-        this.position = position;
+        this.specialtyID = specialtyID;
         this.consultationsNumber = consultationsNumber;
         this.reviewsNumber = reviewsNumber;
         this.ratingID = ratingID;

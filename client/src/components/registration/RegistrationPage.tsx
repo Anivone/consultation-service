@@ -5,7 +5,7 @@ import to from "await-to-js";
 import { IAccount } from "../../domain/entities/types";
 import { useHistory } from 'react-router-dom';
 
-interface RegistrationPageState {
+export interface RegistrationPageState {
     email: string;
     password: string;
     firstName: string;
@@ -15,7 +15,7 @@ interface RegistrationPageState {
     country: string;
     city: string;
     isConsultant: boolean;
-    position?: string;
+    specialtyID?: string;
 }
 
 const useStyles = makeStyles({
@@ -56,7 +56,7 @@ const RegistrationPage = () => {
         country: '',
         city: '',
         isConsultant: false,
-        position: ''
+        specialtyID: ''
     })
 
     const handleSwitch = (evt: any) => {
@@ -74,8 +74,7 @@ const RegistrationPage = () => {
     }
 
     const onClickLog = async (evt: any) => {
-        const [err, user] = await to<IAccount | null>(
-            authService.login(state.email, state.password));
+        const [err, user] = await to<any | null>(authService.register(state));
         if (err) throw err;
         if (!user) return;
 
@@ -87,12 +86,12 @@ const RegistrationPage = () => {
     }
 
     return (
-        <div className='vw-100 vh-100 d-flex flex-row justify-content-center align-items-center'>
+        <div className='vw-100 vh-100 bg-main d-flex flex-row justify-content-center align-items-center'>
             <div className='w-75 d-flex flex-row justify-content-center align-items-center'>
                 <div className='w-100 h-100 d-flex flex-row justify-content-center align-items-center'>
                     <div className='w-75 d-flex flex-column justify-content-center align-items-center'>
                         <div className='w-100 mb-5 d-flex flex-row justify-content-center align-items-center'>
-                            <span className={classes.title}>Реєстрація</span>
+                            <span className={classes.title}>Registration</span>
                         </div>
                         <div className='w-100 mb-4 d-flex flex-row justify-content-center align-items-center'>
                             <TextField
@@ -101,7 +100,7 @@ const RegistrationPage = () => {
                                 className={classes.inputWidth}
                                 required
                                 autoFocus
-                                label="Електронна пошта"
+                                label="Email"
                                 variant="outlined"
                                 placeholder={'example@mail.com'}
                             />
@@ -112,7 +111,7 @@ const RegistrationPage = () => {
                                 className={classes.inputWidth}
                                 required
                                 type={'password'}
-                                label="Пароль"
+                                label="Password"
                                 variant="outlined"
                             />
                         </div>
@@ -122,7 +121,7 @@ const RegistrationPage = () => {
                                 name={'firstName'}
                                 className={classes.inputWidth}
                                 required
-                                label="Ім'я"
+                                label="First Name"
                                 variant="outlined"
                             />
                             <div className={classes.spaceDiv}/>
@@ -131,7 +130,7 @@ const RegistrationPage = () => {
                                 name={'lastName'}
                                 className={classes.inputWidth}
                                 required
-                                label="Прізвище"
+                                label="Last Name"
                                 variant="outlined"
                             />
                         </div>
@@ -140,7 +139,7 @@ const RegistrationPage = () => {
                                 onChange={handleInput}
                                 name={'middleName'}
                                 className={classes.inputWidth}
-                                label="Ім'я по-батькові"
+                                label="Middle Name"
                                 variant="outlined"
                             />
                             <div className={classes.spaceDiv}/>
@@ -149,7 +148,7 @@ const RegistrationPage = () => {
                                 name={'phoneNumber'}
                                 className={classes.inputWidth}
                                 required
-                                label="Номер телефону"
+                                label="Phone Number"
                                 variant="outlined"
                                 placeholder={'1234567890'}
                             />
@@ -158,7 +157,7 @@ const RegistrationPage = () => {
                             <FormControlLabel
                                 name={'isConsultant'}
                                 control={<Switch checked={state.isConsultant} color={'primary'}/>}
-                                label="Я консультант"
+                                label="I am a consultant"
                                 onChange={handleSwitch}
                             />
                         </div>
@@ -171,9 +170,9 @@ const RegistrationPage = () => {
                                         <TextField
                                             fullWidth
                                             onChange={handleInput}
-                                            name={'position'}
+                                            name={'specialtyID'}
                                             required
-                                            label="Посада"
+                                            label="Specialty"
                                             variant="outlined"
                                         />
                                     </div>
@@ -188,12 +187,12 @@ const RegistrationPage = () => {
                                 color={"primary"}
                                 onClick={onClickLog}
                             >
-                                Зареєструватися
+                                Register
                             </Button>
                         </div>
                         <div
                             className='w-100 mt-3 mb-3 d-flex flex-row justify-content-center align-content-center'>
-                            <span className={classes.loginLabel}>Або якщо вже маєте аккаунт</span>
+                            <span className={classes.loginLabel}>Or if you already have an account</span>
                         </div>
                         <div className='w-25 d-flex flex-column justify-content-center align-items-center'>
                             <Button
@@ -202,7 +201,7 @@ const RegistrationPage = () => {
                                 color={"primary"}
                                 onClick={loginRedirect}
                             >
-                                Увійти
+                                Login
                             </Button>
                         </div>
                     </div>

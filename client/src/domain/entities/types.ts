@@ -6,7 +6,6 @@ export enum Role {
 export interface IAccount {
     _id?: string;
     email: string;
-    password: string;
     userID: string;
     role: Role;
 }
@@ -25,7 +24,7 @@ export interface IUser {
     posts: number;
     comments: number;
     isConsultant: boolean;
-    position?: string;
+    specialtyID?: string;
     consultationsNumber?: number;
     reviewsNumber?: number;
     ratingID?: string;

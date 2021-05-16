@@ -31,6 +31,9 @@ import { UpdateRating } from "../domain/use-cases/rating/UpdateRating";
 import { CreateRating } from "../domain/use-cases/rating/CreateRating";
 import { GetRatingById } from "../domain/use-cases/rating/GetRatingById";
 import { GetRatings } from "../domain/use-cases/rating/GetRatings";
+import { PostService } from "../infrastructure/services/PostService";
+import { GetPostUsersWithRatings } from "../domain/use-cases/user/GetPostUsersWithRatings";
+import { GetCommentsWithUser } from "../domain/use-cases/comment/GetCommentsWithUser";
 
 export interface ContainerReq extends Request {
     container: awilix.AwilixContainer;
@@ -57,6 +60,8 @@ export default function makeContainer(connection: mongoose.Connection) {
         ratingRepository: awilix.asClass(RatingRepository).singleton(),
         postUserRepository: awilix.asClass(PostUserRepository).singleton(),
 
+        postService: awilix.asClass(PostService).singleton(),
+
         // Use-Cases
         createPost: awilix.asClass(CreatePost).singleton(),
         deletePost: awilix.asClass(DeletePost).singleton(),
@@ -69,6 +74,7 @@ export default function makeContainer(connection: mongoose.Connection) {
         getCommentById: awilix.asClass(GetCommentById).singleton(),
         getComments: awilix.asClass(GetComments).singleton(),
         updateComment: awilix.asClass(UpdateComment).singleton(),
+        getCommentsWithUser: awilix.asClass(GetCommentsWithUser).singleton(),
 
         createPostUser: awilix.asClass(CreatePostUser).singleton(),
         deletePostUser: awilix.asClass(DeletePostUser).singleton(),
@@ -76,6 +82,7 @@ export default function makeContainer(connection: mongoose.Connection) {
         getPostUsers: awilix.asClass(GetPostUsers).singleton(),
         updatePostUser: awilix.asClass(UpdatePostUser).singleton(),
         promotePostUser: awilix.asClass(PromotePostUser).singleton(),
+        getPostUsersWithRatings: awilix.asClass(GetPostUsersWithRatings).singleton(),
 
         createRating: awilix.asClass(CreateRating).singleton(),
         deleteRating: awilix.asClass(DeleteRating).singleton(),

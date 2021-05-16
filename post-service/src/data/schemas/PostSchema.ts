@@ -50,10 +50,6 @@ const PostSchema: Schema<IPostDocument> = new Schema<IPostDocument>({
         required: true,
         default: 0
     },
-    sphereID: {
-        type: Schema.Types.String,
-        required: true,
-    },
     specialty: {
         type: Schema.Types.String,
         required: true,
@@ -85,7 +81,6 @@ PostSchema.statics.toPost = (post: IPost) => {
             year: post.date.year,
         },
         views: post.views,
-        sphereID: post.sphereID,
         specialty: post.specialty,
         status: post.status,
         edited: post.edited,

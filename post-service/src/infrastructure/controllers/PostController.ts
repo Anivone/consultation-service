@@ -1,24 +1,21 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post as POST, Req } from "routing-controllers";
 import { IPost } from "../../domain/entities/types";
-import { Post } from "../../domain/entities/Post";
 import { ContainerReq } from "../../config/Container";
+import { PostService } from "../services/PostService";
 
 @Controller('/posts')
 export class PostController {
 
     @Get('/')
-    async getPosts(@Req() req: ContainerReq): Promise<IPost[]> {
-        const { getPosts } = req.container.cradle;
-        const posts: IPost[] = await getPosts.execute();
-
-        return posts.map(post => new Post(post));
+    async getPosts(@Req() req: ContainerReq): Promise<any> {
+        const { postService }: { postService: PostService } = req.container.cradle;
+        return postService.getAll();
     }
 
     @Get('/:id')
-    async getPost(@Req() req: ContainerReq, @Param('id') id: string): Promise<IPost> {
-        console.log('[X] getPost accessed :(');
-        const { getPostById } = req.container.cradle;
-        return await getPostById.execute(id);
+    async getPost(@Req() req: ContainerReq, @Param('id') id: string): Promise<any> {
+        const { postService }: { postService: PostService } = req.container.cradle;
+        return postService.getOne(id);
     }
 
     @POST('/')
@@ -31,6 +28,17 @@ export class PostController {
     async updatePost(@Req() req: ContainerReq, @Body() updateProps: any, @Param('id') id: string): Promise<IPost> {
         const { updatePost } = req.container.cradle;
         return await updatePost.execute({ id, updateProps });
+    }
+
+    @Patch('/:id/vote')
+    async votePost(@Req() req: ContainerReq, @Body() updateProps: any, @Param('id') id: string): Promise<any> {
+        const { updatePost } = req.container.cradle;
+        console.log('[X] updateProps: ', updateProps);
+        return await updatePost.execute({ id, updateProps: {
+                $inc: {
+                    relevance: updateProps.vote
+                }
+            }})
     }
 
     @Delete('/:id')
